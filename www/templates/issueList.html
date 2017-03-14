@@ -1,5 +1,11 @@
-<ion-view view-title="Issue List">
+<ion-view view-title="Issue List" ng-controller='issueListCtrl as ctrl'>
   <ion-content>
-    <p>Hello! This is the issue list screen.</p>
+  	<p>
+	  <ul>
+	    <li ng-repeat='issue in ctrl.issues'>
+	      <issue-list-element issue='issue'></issue-list-element>
+	    </li>
+	  </ul>
+	</p>
   </ion-content>
 </ion-view>

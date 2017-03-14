@@ -125,8 +125,6 @@ angular.module('citizen-engagement').run(function(AuthService, $rootScope, $stat
   });
 });
 
-
-
 angular.module('citizen-engagement').config(function($httpProvider) {
   $httpProvider.interceptors.push('AuthInterceptor');
 });
