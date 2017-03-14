@@ -1,5 +1,39 @@
 <ion-view view-title="Nouvel utilisateur">
   <ion-content>
     <p>Création du compte utilisateur</p>
+      
+      <form name="addUser">
+
+      <!-- Ionic uses lists to group related input elements. -->
+      <div class="list">
+        <label class="item item-input">
+          <input type="text" placeholder="Username"  required />
+        </label>
+          
+        <label class="item item-input">
+          <input type="password" placeholder="Password" required />
+        </label>
+          
+          <label class="item item-input">
+          <input type="password" placeholder="Confirmation password" required />
+        </label>
+          
+          <label class="item item-input">
+          <input type="text" placeholder="Prenom"  required />
+        </label>
+          
+          <label class="item item-input">
+          <input type="text" placeholder="Nom"  required />
+        </label>
+          
+           <label class="item item-input">
+          <input type="text" placeholder="Téléphone"  required />
+        </label>
+      </div>
+
+  
+          <a ui-sref="login"><button class="button button-full button-positive" >Enregistrer</button></a>
+
+    </form>
   </ion-content>
 </ion-view>
