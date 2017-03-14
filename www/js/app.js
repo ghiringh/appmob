@@ -37,6 +37,12 @@ angular.module('citizen-engagement').config(function($stateProvider, $urlRouterP
       controllerAs: 'loginCtrl',
       templateUrl: 'templates/login.html'
     })
+  
+  .state('addUser', {
+      url: '/addUser',
+      templateUrl: 'templates/addUser.html'
+    })
+    
 
     // This is the abstract state for the tabs directive.
     .state('tab', {
@@ -86,6 +92,8 @@ angular.module('citizen-engagement').config(function($stateProvider, $urlRouterP
         }
       }
     })
+  
+   
 
     // This is the issue details state.
     .state('tab.issueDetails', {
@@ -116,7 +124,7 @@ angular.module('citizen-engagement').run(function(AuthService, $rootScope, $stat
   $rootScope.$on('$stateChangeStart', function(event, toState) {
 
     // If the user is not logged in and is trying to access another state than "login"...
-    if (!AuthService.authToken && toState.name != 'login') {
+    if (!AuthService.authToken && toState.name != 'login' && toState.name != 'addUser') {
 
       // ... then cancel the transition and go to the "login" state instead.
       event.preventDefault();

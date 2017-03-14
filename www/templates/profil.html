@@ -3,6 +3,24 @@
     <button type="button" ng-controller="LogoutCtrl as logoutCtrl" ng-click="logoutCtrl.logOut()" class="button">Log Out</button>
   </ion-nav-buttons>
   <ion-content>
-    <p>PROFIL</p>
+    <div class="userInfos">
+        <label class="item item-input">
+          <!-- Note the required="required" attribute used for validation. -->
+          <input type="text" placeholder="Username" ng-model="loginCtrl.user.name" required />
+        </label>
+        <label class="item item-input">
+          <input type="password" placeholder="Password" ng-model="loginCtrl.user.password" required />
+        </label>
+         <label class="item item-input">
+          <input type="text" placeholder="Prénom" required />
+        </label>
+        <label class="item item-input">
+          <input type="text" placeholder="Nom" required />
+        </label>
+        <label class="item item-input">
+          <input type="text" placeholder="Téléphone" required />
+        </label>
+              <button class="button button-full button-positive">Enregistrer</button>
+      </div>
   </ion-content>
 </ion-view>
