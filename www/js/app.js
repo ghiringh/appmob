@@ -77,6 +77,15 @@ angular.module('citizen-engagement').config(function($stateProvider, $urlRouterP
         }
       }
     })
+  
+    .state('tab.profil', {
+      url: '/profil',
+      views: {
+        'tab-profil': {
+          templateUrl: 'templates/profil.html'
+        }
+      }
+    })
 
     // This is the issue details state.
     .state('tab.issueDetails', {
@@ -95,7 +104,7 @@ angular.module('citizen-engagement').config(function($stateProvider, $urlRouterP
 
   // Define the default state (i.e. the first screen displayed when the app opens).
   $urlRouterProvider.otherwise(function($injector) {
-    $injector.get('$state').go('tab.newIssue'); // Go to the new issue tab by default.
+    $injector.get('$state').go('tab.issueList'); // Go to the new issue tab by default.
   });
 });
 
