@@ -1,11 +1,11 @@
 
 <div class="list">
-   <a ui-sref="issueDetails" id="listeIssues">
+   <a ui-sref="tab.issueDetails" id="listeIssues">
        <div class="item item-thumbnail-left">
               <img src={{issueListElementCtrl.issue.imageUrl}}>
-                <p>{{issueListElementCtrl.issue.description}}</p>
-                <p>{{issueListElementCtrl.issue.state}}</p>
-                <p>{{issueListElementCtrl.issue.createdAt | date:"dd/MM/yyyy"}}</p>
+                <h2>{{issueListElementCtrl.issue.description}}</h2>
+        <p>{{issueListElementCtrl.issue.state}} • {{issueListElementCtrl.issue.createdAt | date:"dd/MM/yyyy"}}</p>
         </div>
     </a>
 </div>
+

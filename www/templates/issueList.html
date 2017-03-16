@@ -1,5 +1,11 @@
 <ion-view view-title="Issue List" ng-controller='issueListCtrl as ctrl'>
   <ion-content>
+<div class="list list-inset">
+  <label class="item item-input">
+    <i class="icon ion-search placeholder-icon"></i>
+    <input type="text" placeholder="Search">
+  </label>
+</div>
   	<p>
 	  <ul>
 	    <li ng-repeat='issue in ctrl.issues'>
