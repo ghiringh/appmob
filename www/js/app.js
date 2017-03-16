@@ -6,129 +6,129 @@
 angular.module('citizen-engagement', ['ionic', 'angular-storage','geolocation','leaflet-directive'])
 
 .run(function($ionicPlatform) {
-  $ionicPlatform.ready(function() {
-    if(window.cordova && window.cordova.plugins.Keyboard) {
-      // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-      // for form inputs)
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+	$ionicPlatform.ready(function() {
+		if(window.cordova && window.cordova.plugins.Keyboard) {
+			// Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+			// for form inputs)
+			cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
 
-      // Don't remove this line unless you know what you are doing. It stops the viewport
-      // from snapping when text inputs are focused. Ionic handles this internally for
-      // a much nicer keyboard experience.
-      cordova.plugins.Keyboard.disableScroll(true);
-    }
-    if(window.StatusBar) {
-      StatusBar.styleDefault();
-    }
-  });
+			// Don't remove this line unless you know what you are doing. It stops the viewport
+			// from snapping when text inputs are focused. Ionic handles this internally for
+			// a much nicer keyboard experience.
+			cordova.plugins.Keyboard.disableScroll(true);
+		}
+		if(window.StatusBar) {
+			StatusBar.styleDefault();
+		}
+	});
 })
 
 angular.module('citizen-engagement').config(function($stateProvider, $urlRouterProvider) {
 
-  // Ionic uses AngularUI Router which uses the concept of states
-  // Learn more here: https://github.com/angular-ui/ui-router
-  // Set up the various states which the app can be in.
-  // Each state's controller can be found in controllers.js
-  $stateProvider
+	// Ionic uses AngularUI Router which uses the concept of states
+	// Learn more here: https://github.com/angular-ui/ui-router
+	// Set up the various states which the app can be in.
+	// Each state's controller can be found in controllers.js
+	$stateProvider
 
-  .state('login', {
-    url: '/login',
-    controller: 'LoginCtrl',
-    controllerAs: 'loginCtrl',
-    templateUrl: 'templates/login.html'
-  })
-  
-  .state('addUser', {
-      url: '/addUser',
-      templateUrl: 'templates/addUser.html'
-  })
+	.state('login', {
+		url: '/login',
+		controller: 'LoginCtrl',
+		controllerAs: 'loginCtrl',
+		templateUrl: 'templates/login.html'
+	})
+	
+	.state('addUser', {
+			url: '/addUser',
+			templateUrl: 'templates/addUser.html'
+	})
 
-  // This is the abstract state for the tabs directive.
-  .state('tab', {
-    url: '/tab',
-    abstract: true,
-    templateUrl: 'templates/tabs.html'
-  })
+	// This is the abstract state for the tabs directive.
+	.state('tab', {
+		url: '/tab',
+		abstract: true,
+		templateUrl: 'templates/tabs.html'
+	})
 
-  // The three next states are for each of the three tabs.
-  // The state names start with "tab.", indicating that they are children of the "tab" state.
-  .state('tab.newIssue', {
-    // The URL (here "/newIssue") is used only internally with Ionic; you never see it displayed anywhere.
-    // In an Angular website, it would be the URL you need to go to with your browser to enter this state.
-    url: '/newIssue',
-    views: {
-      // The "tab-newIssue" view corresponds to the <ion-nav-view name="tab-newIssue"> directive used in the tabs.html template.
-      'tab-newIssue': {
-        // This defines the template that will be inserted into the directive.
-        templateUrl: 'templates/newIssue.html'
-      }
-    }
-  })
+	// The three next states are for each of the three tabs.
+	// The state names start with "tab.", indicating that they are children of the "tab" state.
+	.state('tab.newIssue', {
+		// The URL (here "/newIssue") is used only internally with Ionic; you never see it displayed anywhere.
+		// In an Angular website, it would be the URL you need to go to with your browser to enter this state.
+		url: '/newIssue',
+		views: {
+			// The "tab-newIssue" view corresponds to the <ion-nav-view name="tab-newIssue"> directive used in the tabs.html template.
+			'tab-newIssue': {
+				// This defines the template that will be inserted into the directive.
+				templateUrl: 'templates/newIssue.html'
+			}
+		}
+	})
 
-  .state('tab.issueMap', {
-    url: '/issueMap',
-    views: {
-      'tab-issueMap': {
-        controller: 'issueMapCtrl',
-        controllerAs: 'issueMapCtrl',
-        templateUrl: 'templates/issueMap.html'
-      }
-    }
-  })
+	.state('tab.issueMap', {
+		url: '/issueMap',
+		views: {
+			'tab-issueMap': {
+				controller: 'issueMapCtrl',
+				controllerAs: 'issueMapCtrl',
+				templateUrl: 'templates/issueMap.html'
+			}
+		}
+	})
 
-  .state('tab.issueList', {
-    url: '/issueList',
-    views: {
-      'tab-issueList': {
-        templateUrl: 'templates/issueList.html'
-      }
-    }
-  })
+	.state('tab.issueList', {
+		url: '/issueList',
+		views: {
+			'tab-issueList': {
+				templateUrl: 'templates/issueList.html'
+			}
+		}
+	})
 
-  .state('tab.profil', {
-    url: '/profil',
-    views: {
-      'tab-profil': {
-        templateUrl: 'templates/profil.html'
-      }
-    }
-  })
+	.state('tab.profil', {
+		url: '/profil',
+		views: {
+			'tab-profil': {
+				templateUrl: 'templates/profil.html'
+			}
+		}
+	})
 
-  // This is the issue details state.
-  .state('issueDetails', {
-    // We use a parameterized route for this state.
-    // That way we'll know which issue to display the details of.
-    url: '/issueDetails/:issueId',
-   
-      // Here we use the same "tab-issueList" view as the previous state.
-      // This means that the issue details template will be displayed in the same tab as the issue list.
-      
-    templateUrl: 'templates/issueDetails.html'
-  });
+	// This is the issue details state.
+	.state('issueDetails', {
+		// We use a parameterized route for this state.
+		// That way we'll know which issue to display the details of.
+		url: '/issueDetails/:issueId',
+	 
+			// Here we use the same "tab-issueList" view as the previous state.
+			// This means that the issue details template will be displayed in the same tab as the issue list.
+			
+		templateUrl: 'templates/issueDetails.html'
+	});
 
-  // Define the default state (i.e. the first screen displayed when the app opens).
-  $urlRouterProvider.otherwise(function($injector) {
-    $injector.get('$state').go('tab.issueList'); // Go to the new issue tab by default.
-  });
+	// Define the default state (i.e. the first screen displayed when the app opens).
+	$urlRouterProvider.otherwise(function($injector) {
+		$injector.get('$state').go('tab.issueList'); // Go to the new issue tab by default.
+	});
 });
 
 angular.module('citizen-engagement').run(function(AuthService, $rootScope, $state) {
 
-  // Listen for the $stateChangeStart event of AngularUI Router.
-  // This event indicates that we are transitioning to a new state.
-  // We have the possibility to cancel the transition in the callback function.
-  $rootScope.$on('$stateChangeStart', function(event, toState) {
+	// Listen for the $stateChangeStart event of AngularUI Router.
+	// This event indicates that we are transitioning to a new state.
+	// We have the possibility to cancel the transition in the callback function.
+	$rootScope.$on('$stateChangeStart', function(event, toState) {
 
-    // If the user is not logged in and is trying to access another state than "login"...
-    if (!AuthService.authToken && toState.name != 'login' && toState.name != 'addUser') {
+		// If the user is not logged in and is trying to access another state than "login"...
+		if (!AuthService.authToken && toState.name != 'login' && toState.name != 'addUser') {
 
-      // ... then cancel the transition and go to the "login" state instead.
-      event.preventDefault();
-      $state.go('login');
-    }
-  });
+			// ... then cancel the transition and go to the "login" state instead.
+			event.preventDefault();
+			$state.go('login');
+		}
+	});
 });
 
 angular.module('citizen-engagement').config(function($httpProvider) {
-  $httpProvider.interceptors.push('AuthInterceptor');
+	$httpProvider.interceptors.push('AuthInterceptor');
 });
