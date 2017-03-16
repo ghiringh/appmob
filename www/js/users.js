@@ -1,4 +1,4 @@
-angular.module('citizen-engagement').factory('usersService', function($http, $ionicLoading, apiUrl) {
+angular.module('citizen-engagement').factory('usersService', function($http, $ionicLoading, $ionicHistory, $state, apiUrl) {
 	var service = {};
 
 	service.getMe = function(){
