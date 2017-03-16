@@ -1,27 +1,27 @@
 <ion-view view-title="User profil" ng-controller="profilCtrl as ctrl">
-  <ion-nav-buttons side="secondary">
-  </ion-nav-buttons>
-  <ion-content>
-    <div class="userInfos">
-        <label class="item item-input">
-          <!-- Note the required="required" attribute used for validation. -->
-          <input type="text" placeholder="Username" ng-model="loginCtrl.user.name" required />
-        </label>
-        <label class="item item-input">
-          <input type="password" placeholder="Password" ng-model="loginCtrl.user.password" required />
-        </label>
-         <label class="item item-input">
-          <input type="text" placeholder="Prénom" required />
-        </label>
-        <label class="item item-input">
-          <input type="text" placeholder="Nom" required />
-        </label>
-        <label class="item item-input">
-          <input type="text" placeholder="Téléphone" required />
-        </label>
-              <button class="button button-full button-positive">Enregistrer</button>
-        </label>
-              <button type="button" ng-controller="LogoutCtrl as logoutCtrl" ng-click="logoutCtrl.logOut()" class="button button-full button-assertive">Log Out</button>
-      </div>
-  </ion-content>
+	<ion-nav-buttons side="secondary">
+	</ion-nav-buttons>
+	<ion-content>
+		<div class="userInfos">
+				<label class="item item-input">
+					<!-- Note the required="required" attribute used for validation. -->
+					<input type="text" placeholder="Username" ng-model="loginCtrl.user.name" required />
+				</label>
+				<label class="item item-input">
+					<input type="password" placeholder="Password" ng-model="loginCtrl.user.password" required />
+				</label>
+				 <label class="item item-input">
+					<input type="text" placeholder="Prénom" required />
+				</label>
+				<label class="item item-input">
+					<input type="text" placeholder="Nom" required />
+				</label>
+				<label class="item item-input">
+					<input type="text" placeholder="Téléphone" required />
+				</label>
+							<button class="button button-full button-positive">Enregistrer</button>
+				</label>
+							<button type="button" ng-controller="LogoutCtrl as logoutCtrl" ng-click="logoutCtrl.logOut()" class="button button-full button-assertive">Log Out</button>
+			</div>
+	</ion-content>
 </ion-view>
