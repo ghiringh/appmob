@@ -1,11 +1,10 @@
 <ion-view view-title="Nouvel utilisateur">
 	<ion-content class="padding">
- <div class="item item-avatar">
-            <h1>Créer un compte</h1>
-        </div>			
-			<form name="addUser">
+		<div class="item item-avatar">
+			<h1>Créer un compte</h1>
+		</div>			
+		<form name="addUser">
 
-			<!-- Ionic uses lists to group related input elements. -->
 			<div class="list">
 				<label class="item item-input">
 					<input type="text" placeholder="Username"  required ng-model="addUserCtrl.user.name"/>
@@ -15,27 +14,27 @@
 					<input type="password" placeholder="Password" required ng-model="addUserCtrl.user.password"/>
 				</label>
 					
-					<label class="item item-input">
+				<label class="item item-input">
 					<input type="password" placeholder="Confirmation password" required />
 				</label>
 					
-					<label class="item item-input">
+				<label class="item item-input">
 					<input type="text" placeholder="Prenom"  required ng-model="addUserCtrl.user.firstname"/>
 				</label>
 					
-					<label class="item item-input">
+				<label class="item item-input">
 					<input type="text" placeholder="Nom"  required ng-model="addUserCtrl.user.lastname"/>
 				</label>
 					
-					 <label class="item item-input">
+				<label class="item item-input">
 					<input type="text" placeholder="Téléphone"  required ng-model="addUserCtrl.user.phone"/>
 				</label>
 			</div>
 
 			<p ng-if="addUserCtrl.error" class="error">{{ addUserCtrl.error }}</p>
 
-					<button class="button button-full button-positive" ng-click="addUserCtrl.addUser()" ng-disabled="addUser.$invalid">Enregistrer</button>
-                
+			<button class="button button-full button-positive" ng-click="addUserCtrl.addUser()" ng-disabled="addUser.$invalid">Enregistrer</button>
+				
 		</form>
 	</ion-content>
 </ion-view>

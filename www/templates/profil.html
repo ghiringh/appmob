@@ -2,35 +2,34 @@
 	<ion-nav-buttons side="secondary">
 	</ion-nav-buttons>
 	<ion-content class="padding">
-        
-            <div class="card">
-
-         <div class="item item-avatar">
-            <h1>Mon profil</h1>
-        </div>	
-		<div class="userInfos">
+		<div class="card">
+			<div class="item item-avatar">
+				<h1>Mon profil</h1>
+			</div>	
+			<div class="userInfos">
 				<label class="item item-input">
-					<!-- Note the required="required" attribute used for validation. -->
 					<input type="text" placeholder="Username" ng-model="loginCtrl.user.name" required />
 				</label>
+
 				<label class="item item-input">
 					<input type="password" placeholder="Password" ng-model="loginCtrl.user.password" required />
 				</label>
+
 				 <label class="item item-input">
 					<input type="text" placeholder="Prénom" required />
 				</label>
+
 				<label class="item item-input">
 					<input type="text" placeholder="Nom" required />
 				</label>
+
 				<label class="item item-input">
 					<input type="text" placeholder="Téléphone" required />
 				</label>
-            
-               </div>
-                			</div>
+			</div>
+		</div>
 
-							<button class="button button-full button-positive">Enregistrer</button>
-							<button type="button" ng-controller="LogoutCtrl as logoutCtrl" ng-click="logoutCtrl.logOut()" class="button button-full button-assertive">Log Out</button>
-     
+		<button class="button button-full button-positive">Enregistrer</button>
+		<button type="button" ng-controller="LogoutCtrl as logoutCtrl" ng-click="logoutCtrl.logOut()" class="button button-full button-assertive">Log Out</button>
 	</ion-content>
 </ion-view>

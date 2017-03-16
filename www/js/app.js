@@ -98,10 +98,10 @@ angular.module('citizen-engagement').config(function($stateProvider, $urlRouterP
 		controller: 'issueDetailsCtrl',
 		controllerAs: 'issueDetailsCtrl',
 		views: {
-            'tab-issueList': {
+			'tab-issueList': {
 		templateUrl: 'templates/issueDetails.html'
-            }
-        }
+			}
+		}
 	});
 
 	$urlRouterProvider.otherwise(function($injector) {

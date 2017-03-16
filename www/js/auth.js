@@ -66,12 +66,7 @@ angular.module('citizen-engagement').factory('LoginService', function(apiUrl, Au
 
 angular.module('citizen-engagement').factory('AuthInterceptor', function(AuthService) {
 	return {
-
-		// The request function will be called before all requests.
-		// In it, you can modify the request configuration object.
 		request: function(config) {
-
-			// If the user is logged in, add the X-User-Id header.
 			if (AuthService.authToken) {
 				config.headers.Authorization = 'Bearer ' + AuthService.authToken;
 			}

@@ -1,44 +1,36 @@
 <ion-view view-title="New Issue" ng-controller="newIssueCtrl as ctrl">
- 
 	<ion-content>
-			<div>
-		<p>Créer une nouvelle issue</p>
 			
-			 <label class="item item-input">
-				<input type="text" placeholder="Description" required />
-				</label>
+		<label class="item item-input">
+			<input type="text" placeholder="Description" required />
+		</label>
+
+		<label class = "item item-input item-select">
+			<div class = "input-label">Sélectionner un type: </div>
+
+			<select>
+				<option>Graffiti</option>
+				<option>Vitre cassée</option>
+				<option>Affiche vandalisée</option>
+				<option>Crottes de chiens</option>
+			</select>
+		</label>
 			
-					
-					<label class = "item item-input item-select">
-							 <div class = "input-label">
-									Sélectionner un type:
-							 </div>
+		<label class="item item-input">
+			<input type="text" placeholder="Tag"/>
+		</label>
 
-							 <select>
-									<option>Graffiti</option>
-									<option>Vitre cassée</option>
-									<option>Affiche vandalisée</option>
-									<option>Crottes de chiens</option>
-							 </select>
-						</label>
+		<label class="item item-input">
+			<input type="text" placeholder="Tag"/>
+		</label>
 
-			
-			<label class="item item-input">
-				<input type="text" placeholder="Tag"/>
-			</label>
-			 <label class="item item-input">
-				<input type="text" placeholder="Tag"/>
-			</label>
-			 <label class="item item-input">
-				<input type="text" placeholder="Tag"/>
-			</label>
+		<label class="item item-input">
+			<input type="text" placeholder="Tag"/>
+		</label>
 
-			<tags-input ng-model="tags"></tags-input>
-    		<p>Tags: {{tags}}</p>
-
-			<p>latitude: {{ctrl.latitude}}, longitude: {{ctrl.longitude}}</p>
-		<button class="button button-full button-positive">Ajouter une photo</button>
-			
-			</div>  
+		<tags-input ng-model="tags"></tags-input>
+		<p>Tags: {{tags}}</p>
+		<p>latitude: {{ctrl.latitude}}, longitude: {{ctrl.longitude}}</p>
+		<button class="button button-full button-positive">Ajouter une photo</button> 
 	</ion-content>
 </ion-view>

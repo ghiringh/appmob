@@ -20,11 +20,11 @@ angular.module('citizen-engagement').controller('newIssueCtrl', function(geoloca
 	});
 
 	$scope.tags = [
-        { text: 'just' },
-        { text: 'some' },
-        { text: 'cool' },
-        { text: 'tags' }
-    ];
+		{ text: 'just' },
+		{ text: 'some' },
+		{ text: 'cool' },
+		{ text: 'tags' }
+	];
 });
 
 angular.module('citizen-engagement').controller('issueListCtrl', function(issuesService) {
@@ -46,9 +46,8 @@ angular.module('citizen-engagement').controller('issueMapCtrl', function($scope,
 	var record = {
 		title: 'Lorem ipsum'
 	};
-	var mapboxMapId = 'mapbox.satellite';  // Use your favorite tileset here
-	var mapboxAccessToken = mapBoxToken;    // Use your access token here
-	// Build the tile layer URL
+	var mapboxMapId = 'mapbox.satellite';
+	var mapboxAccessToken = mapBoxToken;
 	var mapboxTileLayerUrl = 'http://api.tiles.mapbox.com/v4/' + mapboxMapId;
 	mapboxTileLayerUrl = mapboxTileLayerUrl + '/{z}/{x}/{y}.png';
 	mapboxTileLayerUrl = mapboxTileLayerUrl + '?access_token=' + mapboxAccessToken;
