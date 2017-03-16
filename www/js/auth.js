@@ -92,10 +92,7 @@ angular.module('citizen-engagement').controller('LoginCtrl', function(apiUrl, Lo
 
 		delete loginCtrl.error;
 
-		LoginService.login(loginCtrl.user).then(function(res){
-
-		}).catch(function(res) {
-
+		LoginService.login(loginCtrl.user).catch(function(res){
 			$ionicLoading.hide();
 			loginCtrl.error = res;
 		});

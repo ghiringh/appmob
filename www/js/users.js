@@ -1,4 +1,4 @@
-angular.module('citizen-engagement').factory('usersService', function($http, apiUrl) {
+angular.module('citizen-engagement').factory('usersService', function($http, $ionicLoading, apiUrl) {
 	var service = {};
 
 	service.getMe = function(){
@@ -14,12 +14,29 @@ angular.module('citizen-engagement').factory('usersService', function($http, api
 	}
 
 	service.postUser = function(user){
+
+		$ionicLoading.show({
+			template: 'Logging in...',
+			delay: 750
+		});
+
 		user.roles = ["citizen"];
 		return $http({
 			method: 'POST',
 			url: apiUrl + '/users',
 			data: user
-		})
+		}).then(function(res) {
+
+			$ionicLoading.hide();
+			$ionicHistory.nextViewOptions({
+				disableBack: true,
+				historyRoot: true
+			});
+
+			$state.go('tab.issueList');
+
+			return res;
+		});
 	}
 
 	return service;
@@ -32,13 +49,19 @@ angular.module('citizen-engagement').controller('profilCtrl', function(usersServ
 	});
 });
 
-angular.module('citizen-engagement').controller('addUserCtrl', function(usersService) {
+angular.module('citizen-engagement').controller('addUserCtrl', function(usersService, LoginService, $ionicLoading) {
 	var ctrl = this;
 	ctrl.addUser = function(){
 		usersService.postUser(ctrl.user).then(function(res){
 
-		}).catch(function(){
+			delete ctrl.error;
+			LoginService.login(ctrl.user);
+
+		}).catch(function(res){
+
+			$ionicLoading.hide();
+			ctrl.error = res;
 
 		});
-	}
+	};
 });
