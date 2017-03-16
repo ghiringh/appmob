@@ -1,4 +1,4 @@
-<ion-view view-title="New Issue">
+<ion-view view-title="New Issue" ng-controller="newIssueCtrl as ctrl">
  
   <ion-content>
       <div>
@@ -32,7 +32,7 @@
        <label class="item item-input">
         <input type="text" placeholder="Tag"/>
       </label>
-      <p>localisation</p>
+      <p>latitude: {{ctrl.latitude}}, longitude: {{ctrl.longitude}}</p>
     <button class="button button-full button-positive">Ajouter une photo</button>
       
       </div>  

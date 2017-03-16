@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('citizen-engagement', ['ionic', 'angular-storage'])
+angular.module('citizen-engagement', ['ionic', 'angular-storage','geolocation','leaflet-directive'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -31,84 +31,82 @@ angular.module('citizen-engagement').config(function($stateProvider, $urlRouterP
   // Each state's controller can be found in controllers.js
   $stateProvider
 
-    .state('login', {
-      url: '/login',
-      controller: 'LoginCtrl',
-      controllerAs: 'loginCtrl',
-      templateUrl: 'templates/login.html'
-    })
+  .state('login', {
+    url: '/login',
+    controller: 'LoginCtrl',
+    controllerAs: 'loginCtrl',
+    templateUrl: 'templates/login.html'
+  })
   
   .state('addUser', {
       url: '/addUser',
       templateUrl: 'templates/addUser.html'
-    })
-    
+  })
 
-    // This is the abstract state for the tabs directive.
-    .state('tab', {
-      url: '/tab',
-      abstract: true,
-      templateUrl: 'templates/tabs.html'
-    })
+  // This is the abstract state for the tabs directive.
+  .state('tab', {
+    url: '/tab',
+    abstract: true,
+    templateUrl: 'templates/tabs.html'
+  })
 
-    // The three next states are for each of the three tabs.
-    // The state names start with "tab.", indicating that they are children of the "tab" state.
-    .state('tab.newIssue', {
-      // The URL (here "/newIssue") is used only internally with Ionic; you never see it displayed anywhere.
-      // In an Angular website, it would be the URL you need to go to with your browser to enter this state.
-      url: '/newIssue',
-      views: {
-        // The "tab-newIssue" view corresponds to the <ion-nav-view name="tab-newIssue"> directive used in the tabs.html template.
-        'tab-newIssue': {
-          // This defines the template that will be inserted into the directive.
-          templateUrl: 'templates/newIssue.html'
-        }
+  // The three next states are for each of the three tabs.
+  // The state names start with "tab.", indicating that they are children of the "tab" state.
+  .state('tab.newIssue', {
+    // The URL (here "/newIssue") is used only internally with Ionic; you never see it displayed anywhere.
+    // In an Angular website, it would be the URL you need to go to with your browser to enter this state.
+    url: '/newIssue',
+    views: {
+      // The "tab-newIssue" view corresponds to the <ion-nav-view name="tab-newIssue"> directive used in the tabs.html template.
+      'tab-newIssue': {
+        // This defines the template that will be inserted into the directive.
+        templateUrl: 'templates/newIssue.html'
       }
-    })
+    }
+  })
 
-    .state('tab.issueMap', {
-      url: '/issueMap',
-      views: {
-        'tab-issueMap': {
-          templateUrl: 'templates/issueMap.html'
-        }
+  .state('tab.issueMap', {
+    url: '/issueMap',
+    views: {
+      'tab-issueMap': {
+        controller: 'issueMapCtrl',
+        controllerAs: 'issueMapCtrl',
+        templateUrl: 'templates/issueMap.html'
       }
-    })
+    }
+  })
 
-    .state('tab.issueList', {
-      url: '/issueList',
-      views: {
-        'tab-issueList': {
-          templateUrl: 'templates/issueList.html'
-        }
+  .state('tab.issueList', {
+    url: '/issueList',
+    views: {
+      'tab-issueList': {
+        templateUrl: 'templates/issueList.html'
       }
-    })
-  
-    .state('tab.profil', {
-      url: '/profil',
-      views: {
-        'tab-profil': {
-          templateUrl: 'templates/profil.html'
-        }
+    }
+  })
+
+  .state('tab.profil', {
+    url: '/profil',
+    views: {
+      'tab-profil': {
+        templateUrl: 'templates/profil.html'
       }
-    })
-  
+    }
+  })
+
+  // This is the issue details state.
+  .state('issueDetails', {
+    // We use a parameterized route for this state.
+    // That way we'll know which issue to display the details of.
+    url: '/issueDetails/:issueId',
    
-
-    // This is the issue details state.
-    .state('issueDetails', {
-      // We use a parameterized route for this state.
-      // That way we'll know which issue to display the details of.
-      url: '/issueDetails/:issueId',
-     
-        // Here we use the same "tab-issueList" view as the previous state.
-        // This means that the issue details template will be displayed in the same tab as the issue list.
-        
-          templateUrl: 'templates/issueDetails.html'
-       
+      // Here we use the same "tab-issueList" view as the previous state.
+      // This means that the issue details template will be displayed in the same tab as the issue list.
       
-    })
-  ;
+        templateUrl: 'templates/issueDetails.html'
+     
+    
+  });
 
   // Define the default state (i.e. the first screen displayed when the app opens).
   $urlRouterProvider.otherwise(function($injector) {

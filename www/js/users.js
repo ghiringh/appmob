@@ -7,6 +7,14 @@ angular.module('citizen-engagement').factory('usersService', function($http, api
     });
   }
 
+  /*service.postUser = function(){
+    return $http({
+      method: 'POST',
+      url: apiUrl + '/users',
+      data: addUserCtrl.user
+    })
+  }*/
+
   return service;
 });
 
@@ -16,3 +24,8 @@ angular.module('citizen-engagement').controller('profilCtrl', function(usersServ
     ctrl.me = data;
   });
 });
+/*
+angular.module('citizen-engagement').controller('profilCtrl', function(usersService) {
+  var ctrl = this;
+  ctrl.addUser = usersService.postUser();
+});*/

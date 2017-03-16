@@ -17,6 +17,27 @@ angular.module('citizen-engagement').controller('issueListCtrl', function(issues
   });
 });
 
+angular.module('citizen-engagement').controller('newIssueCtrl', function(geolocation, $log) {
+  var ctrl = this;
+  geolocation.getLocation().then(function(data){
+    ctrl.latitude = data.coords.latitude;
+    ctrl.longitude = data.coords.longitude;
+  }).catch(function(err) {
+    $log.error('Could not get location because: ' + err.message);
+  });
+});
+
+angular.module('citizen-engagement').controller('issueMapCtrl', function() {
+  var ctrl = this;
+  ctrl.defaults = {};
+  ctrl.markers = [];
+  ctrl.center = {
+    lat: 51.48,
+    lng: 0,
+    zoom: 14
+  };
+});
+
 angular.module('citizen-engagement').component('issueListElement', {
   templateUrl: 'templates/issueListElement.html',
   bindings: {

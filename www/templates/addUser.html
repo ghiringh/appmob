@@ -7,11 +7,11 @@
       <!-- Ionic uses lists to group related input elements. -->
       <div class="list">
         <label class="item item-input">
-          <input type="text" placeholder="Username"  required />
+          <input type="text" placeholder="Username"  required ng-model="addUserCtrl.user.username"/>
         </label>
           
         <label class="item item-input">
-          <input type="password" placeholder="Password" required />
+          <input type="password" placeholder="Password" required ng-model="addUserCtrl.user.password"/>
         </label>
           
           <label class="item item-input">
@@ -19,20 +19,21 @@
         </label>
           
           <label class="item item-input">
-          <input type="text" placeholder="Prenom"  required />
+          <input type="text" placeholder="Prenom"  required ng-model="addUserCtrl.user.firstname"/>
         </label>
           
           <label class="item item-input">
-          <input type="text" placeholder="Nom"  required />
+          <input type="text" placeholder="Nom"  required ng-model="addUserCtrl.user.lastname"/>
         </label>
           
            <label class="item item-input">
-          <input type="text" placeholder="Téléphone"  required />
+          <input type="text" placeholder="Téléphone"  required ng-model="addUserCtrl.user.phone"/>
         </label>
       </div>
 
-  
-          <a ui-sref="login"><button class="button button-full button-positive" >Enregistrer</button></a>
+      <p ng-if="addUserCtrl.error" class="error">{{ addUserCtrl.error }}</p>
+
+          <button class="button button-full button-positive" ng-click="addUserCtrl.addUser()" ng-disabled="addUser.$invalid">Enregistrer</button>
 
     </form>
   </ion-content>
