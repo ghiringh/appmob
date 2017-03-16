@@ -1,4 +1,4 @@
-angular.module('citizen-engagement').factory('profilService', function($http, apiUrl) {
+angular.module('citizen-engagement').factory('usersService', function($http, apiUrl) {
   var service = {};
 
   service.getMe = function(){
@@ -10,7 +10,7 @@ angular.module('citizen-engagement').factory('profilService', function($http, ap
   return service;
 });
 
-angular.module('citizen-engagement').controller('profilCtrl', function(profilService) {
+angular.module('citizen-engagement').controller('profilCtrl', function(usersService) {
   var ctrl = this;
   userService.getMe().then(function(data) {
     ctrl.me = data;

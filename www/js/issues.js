@@ -1,4 +1,4 @@
-angular.module('citizen-engagement').factory('issueListService', function($http, apiUrl) {
+angular.module('citizen-engagement').factory('issuesService', function($http, apiUrl) {
   var service = {};
 
   service.getIssues = function(){
@@ -10,7 +10,7 @@ angular.module('citizen-engagement').factory('issueListService', function($http,
   return service;
 });
 
-angular.module('citizen-engagement').controller('issueListCtrl', function(issueListService) {
+angular.module('citizen-engagement').controller('issueListCtrl', function(issuesService) {
   var ctrl = this;
   issueListService.getIssues().then(function(data) {
     ctrl.issues = data;
