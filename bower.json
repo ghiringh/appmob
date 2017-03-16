@@ -7,6 +7,7 @@
   "dependencies": {
     "a0-angular-storage": "^0.0.15",
     "angularjs-geolocation": "^0.1.1",
-    "angular-leaflet-directive": "^0.10.0"
+    "angular-leaflet-directive": "^0.10.0",
+    "ng-tags-input": "^3.1.1"
   }
 }
