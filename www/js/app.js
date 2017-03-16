@@ -1,9 +1,4 @@
-// Ionic Starter App
-
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-angular.module('citizen-engagement', ['ionic', 'angular-storage','geolocation','leaflet-directive']);
+angular.module('citizen-engagement', ['ionic', 'angular-storage','geolocation','leaflet-directive','ngTagsInput']);
 
 angular.module('citizen-engagement').run(function($ionicPlatform, AuthService, $rootScope, $state) {
 	$ionicPlatform.ready(function() {

@@ -1,7 +1,8 @@
 <ion-view view-title="Nouvel utilisateur">
-	<ion-content>
-		<p>Création du compte utilisateur</p>
-			
+	<ion-content class="padding">
+ <div class="item item-avatar">
+            <h1>Créer un compte</h1>
+        </div>			
 			<form name="addUser">
 
 			<!-- Ionic uses lists to group related input elements. -->
@@ -34,7 +35,7 @@
 			<p ng-if="addUserCtrl.error" class="error">{{ addUserCtrl.error }}</p>
 
 					<button class="button button-full button-positive" ng-click="addUserCtrl.addUser()" ng-disabled="addUser.$invalid">Enregistrer</button>
-
+                
 		</form>
 	</ion-content>
 </ion-view>

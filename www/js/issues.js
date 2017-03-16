@@ -10,7 +10,7 @@ angular.module('citizen-engagement').factory('issuesService', function($http, ap
 	return service;
 });
 
-angular.module('citizen-engagement').controller('newIssueCtrl', function(geolocation, $log) {
+angular.module('citizen-engagement').controller('newIssueCtrl', function(geolocation, $log, $scope) {
 	var ctrl = this;
 	geolocation.getLocation().then(function(data){
 		ctrl.latitude = data.coords.latitude;
@@ -18,6 +18,13 @@ angular.module('citizen-engagement').controller('newIssueCtrl', function(geoloca
 	}).catch(function(err) {
 		$log.error('Could not get location because: ' + err.message);
 	});
+
+	$scope.tags = [
+        { text: 'just' },
+        { text: 'some' },
+        { text: 'cool' },
+        { text: 'tags' }
+    ];
 });
 
 angular.module('citizen-engagement').controller('issueListCtrl', function(issuesService) {
