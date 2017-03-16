@@ -12,7 +12,7 @@ angular.module('citizen-engagement').factory('issuesService', function($http, ap
 
 angular.module('citizen-engagement').controller('issueListCtrl', function(issuesService) {
   var ctrl = this;
-  issueListService.getIssues().then(function(data) {
+  issuesService.getIssues().then(function(data) {
     ctrl.issues = data;
   });
 });
@@ -23,7 +23,6 @@ angular.module('citizen-engagement').component('issueListElement', {
     issue: '<'
   },
   controller: function($scope) {
-    console.log($scope);
     var issueListElementCtrl = this;
   },
   controllerAs: 'issueListElementCtrl'

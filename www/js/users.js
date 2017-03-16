@@ -12,7 +12,7 @@ angular.module('citizen-engagement').factory('usersService', function($http, api
 
 angular.module('citizen-engagement').controller('profilCtrl', function(usersService) {
   var ctrl = this;
-  userService.getMe().then(function(data) {
+  usersService.getMe().then(function(data) {
     ctrl.me = data;
   });
 });
