@@ -1,96 +1,67 @@
 angular.module('citizen-engagement').factory('AuthService', function(store) {
 
-	var service = {
-		authToken: store.get('authToken'),
+	var service = {};
 
-		setAuthToken: function(token) {
-			service.authToken = token;
-			store.set('authToken', token);
-		},
+	service.authToken = store.get('authToken');
 
-		unsetAuthToken: function() {
-			service.authToken = null;
-			store.remove('authToken');
-		},
+	service.setAuthToken = function(token) {
+		service.authToken = token;
+		store.set('authToken', token);
+	}
 
-		setUserId: function(id){
-			service.userId = id;
-			store.set('userId', id);
-		},
+	service.unsetAuthToken = function() {
+		service.authToken = null;
+		store.remove('authToken');
+	}
 
-		unsetUserId: function() {
-			service.userId = null;
-			store.remove('userId');
-		}
-	};
+	service.setUserId = function(id){
+		service.userId = id;
+		store.set('userId', id);
+	}
+
+	service.unsetUserId = function() {
+		service.userId = null;
+		store.remove('userId');
+	}
 
 	return service;
 });
 
+angular.module('citizen-engagement').factory('LoginService', function(apiUrl, AuthService, $ionicLoading, $ionicHistory, $http, $state) {
 
-angular.module('citizen-engagement').controller('LoginCtrl', function(apiUrl, AuthService, $http, $ionicHistory, $ionicLoading, $scope, $state) {
-	var loginCtrl = this;
+	var service = {};
 
-	// The $ionicView.beforeEnter event happens every time the screen is displayed.
-	$scope.$on('$ionicView.beforeEnter', function() {
-		// Re-initialize the user object every time the screen is displayed.
-		// The first name and last name will be automatically filled from the form thanks to AngularJS's two-way binding.
-		loginCtrl.user = {};
-	});
+	service.login = function(user){
 
-	// Add the register function to the scope.
-	loginCtrl.logIn = function() {
-
-		// Forget the previous error (if any).
-		delete loginCtrl.error;
-
-		// Show a loading message if the request takes too long.
 		$ionicLoading.show({
 			template: 'Logging in...',
 			delay: 750
 		});
 
-		// Make the request to retrieve or create the user.
-		$http({
+		return $http({
 			method: 'POST',
 			url: apiUrl + '/auth',
-			data: loginCtrl.user
+			data: user
 		}).then(function(res) {
 
-			// If successful, give the token to the authentication service.
 			AuthService.setAuthToken(res.data.token);
 			AuthService.setUserId(res.data.user.id);
 
-			// Hide the loading message.
 			$ionicLoading.hide();
 
-			// Set the next view as the root of the history.
-			// Otherwise, the next screen will have a "back" arrow pointing back to the login screen.
 			$ionicHistory.nextViewOptions({
 				disableBack: true,
 				historyRoot: true
 			});
 
-			// Go to the issue creation tab.
 			$state.go('tab.issueList');
 
-		}).catch(function() {
-
-			// If an error occurs, hide the loading message and show an error message.
-			$ionicLoading.hide();
-			loginCtrl.error = 'Could not log in.';
+			return res;
 		});
-	};
-});
 
-angular.module('citizen-engagement').controller('LogoutCtrl', function(AuthService, $state) {
-	var logoutCtrl = this;
+	}
 
-	logoutCtrl.logOut = function() {
-		AuthService.unsetAuthToken();
-		AuthService.unsetUserId();
-		$state.go('login');
-	};
+	return service;
 });
 
 angular.module('citizen-engagement').factory('AuthInterceptor', function(AuthService) {
@@ -107,5 +78,36 @@ angular.module('citizen-engagement').factory('AuthInterceptor', function(AuthSer
 
 			return config;
 		}
+	};
+});
+
+angular.module('citizen-engagement').controller('LoginCtrl', function(apiUrl, LoginService, AuthService, $http, $ionicHistory, $ionicLoading, $scope, $state) {
+	var loginCtrl = this;
+
+	$scope.$on('$ionicView.beforeEnter', function() {
+		loginCtrl.user = {};
+	});
+
+	loginCtrl.logIn = function(){
+
+		delete loginCtrl.error;
+
+		LoginService.login(loginCtrl.user).then(function(res){
+
+		}).catch(function(res) {
+
+			$ionicLoading.hide();
+			loginCtrl.error = res;
+		});
+	};
+});
+
+angular.module('citizen-engagement').controller('LogoutCtrl', function(AuthService, $state) {
+	var logoutCtrl = this;
+
+	logoutCtrl.logOut = function() {
+		AuthService.unsetAuthToken();
+		AuthService.unsetUserId();
+		$state.go('login');
 	};
 });

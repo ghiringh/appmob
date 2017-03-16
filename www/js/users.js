@@ -1,4 +1,4 @@
-angular.module('citizen-engagement').factory('usersService', function($http, apiUrl, AuthService) {
+angular.module('citizen-engagement').factory('usersService', function($http, apiUrl) {
 	var service = {};
 
 	service.getMe = function(){
@@ -13,13 +13,14 @@ angular.module('citizen-engagement').factory('usersService', function($http, api
 		});
 	}
 
-	/*service.postUser = function(){
+	service.postUser = function(user){
+		user.roles = ["citizen"];
 		return $http({
 			method: 'POST',
 			url: apiUrl + '/users',
-			data: addUserCtrl.user
+			data: user
 		})
-	}*/
+	}
 
 	return service;
 });
@@ -30,8 +31,14 @@ angular.module('citizen-engagement').controller('profilCtrl', function(usersServ
 		ctrl.me = data;
 	});
 });
-/*
-angular.module('citizen-engagement').controller('profilCtrl', function(usersService) {
+
+angular.module('citizen-engagement').controller('addUserCtrl', function(usersService) {
 	var ctrl = this;
-	ctrl.addUser = usersService.postUser();
-});*/
+	ctrl.addUser = function(){
+		usersService.postUser(ctrl.user).then(function(res){
+
+		}).catch(function(){
+
+		});
+	}
+});
