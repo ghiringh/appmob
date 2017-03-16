@@ -1,7 +1,13 @@
 <ion-view view-title="User profil" ng-controller="profilCtrl as ctrl">
 	<ion-nav-buttons side="secondary">
 	</ion-nav-buttons>
-	<ion-content>
+	<ion-content class="padding">
+        
+            <div class="card">
+
+         <div class="item item-avatar">
+            <h1>Mon profil</h1>
+        </div>	
 		<div class="userInfos">
 				<label class="item item-input">
 					<!-- Note the required="required" attribute used for validation. -->
@@ -19,9 +25,12 @@
 				<label class="item item-input">
 					<input type="text" placeholder="Téléphone" required />
 				</label>
+            
+               </div>
+                			</div>
+
 							<button class="button button-full button-positive">Enregistrer</button>
-				</label>
 							<button type="button" ng-controller="LogoutCtrl as logoutCtrl" ng-click="logoutCtrl.logOut()" class="button button-full button-assertive">Log Out</button>
-			</div>
+     
 	</ion-content>
 </ion-view>
