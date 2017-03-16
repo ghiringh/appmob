@@ -11,6 +11,16 @@ angular.module('citizen-engagement').factory('AuthService', function(store) {
 		unsetAuthToken: function() {
 			service.authToken = null;
 			store.remove('authToken');
+		},
+
+		setUserId: function(id){
+			service.userId = id;
+			store.set('userId', id);
+		},
+
+		unsetUserId: function() {
+			service.userId = null;
+			store.remove('userId');
 		}
 	};
 
@@ -49,6 +59,7 @@ angular.module('citizen-engagement').controller('LoginCtrl', function(apiUrl, Au
 
 			// If successful, give the token to the authentication service.
 			AuthService.setAuthToken(res.data.token);
+			AuthService.setUserId(res.data.user.id);
 
 			// Hide the loading message.
 			$ionicLoading.hide();
@@ -77,6 +88,7 @@ angular.module('citizen-engagement').controller('LogoutCtrl', function(AuthServi
 
 	logoutCtrl.logOut = function() {
 		AuthService.unsetAuthToken();
+		AuthService.unsetUserId();
 		$state.go('login');
 	};
 });

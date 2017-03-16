@@ -60,7 +60,7 @@ function saveConfig(environment) {
 
     // Replace all occurrences of @apiUrl@.
     .pipe(replace(/@apiUrl@/g, config.apiUrl))
-
+    .pipe(replace(/@mapBoxToken@/g, config.mapBoxToken))
     // Save the result in www/js.
     .pipe(gulp.dest('www/js'));
 }

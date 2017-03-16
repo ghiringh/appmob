@@ -1,8 +1,14 @@
-angular.module('citizen-engagement').factory('usersService', function($http, apiUrl) {
+angular.module('citizen-engagement').factory('usersService', function($http, apiUrl, AuthService) {
 	var service = {};
 
 	service.getMe = function(){
 		return $http.get(apiUrl + '/me').then(function(res) {
+			return res.data;
+		});
+	}
+
+	service.getMeIssues = function(){
+		return $http.get(apiUrl + '/me/issues').then(function(res) {
 			return res.data;
 		});
 	}

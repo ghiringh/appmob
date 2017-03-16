@@ -10,13 +10,6 @@ angular.module('citizen-engagement').factory('issuesService', function($http, ap
 	return service;
 });
 
-angular.module('citizen-engagement').controller('issueListCtrl', function(issuesService) {
-	var ctrl = this;
-	issuesService.getIssues().then(function(data) {
-		ctrl.issues = data;
-	});
-});
-
 angular.module('citizen-engagement').controller('newIssueCtrl', function(geolocation, $log) {
 	var ctrl = this;
 	geolocation.getLocation().then(function(data){
@@ -27,7 +20,14 @@ angular.module('citizen-engagement').controller('newIssueCtrl', function(geoloca
 	});
 });
 
-angular.module('citizen-engagement').controller('issueMapCtrl', function() {
+angular.module('citizen-engagement').controller('issueListCtrl', function(issuesService) {
+	var ctrl = this;
+	issuesService.getIssues().then(function(data) {
+		ctrl.issues = data;
+	});
+});
+
+angular.module('citizen-engagement').controller('issueMapCtrl', function($scope, mapBoxToken) {
 	var ctrl = this;
 	ctrl.defaults = {};
 	ctrl.markers = [];
@@ -36,6 +36,30 @@ angular.module('citizen-engagement').controller('issueMapCtrl', function() {
 		lng: 0,
 		zoom: 14
 	};
+	var record = {
+		title: 'Lorem ipsum'
+	};
+	var mapboxMapId = 'mapbox.satellite';  // Use your favorite tileset here
+	var mapboxAccessToken = mapBoxToken;    // Use your access token here
+	// Build the tile layer URL
+	var mapboxTileLayerUrl = 'http://api.tiles.mapbox.com/v4/' + mapboxMapId;
+	mapboxTileLayerUrl = mapboxTileLayerUrl + '/{z}/{x}/{y}.png';
+	mapboxTileLayerUrl = mapboxTileLayerUrl + '?access_token=' + mapboxAccessToken;
+	ctrl.defaults = {
+		tileLayer: mapboxTileLayerUrl
+	};
+	var msg = '<p>Hello World!</p>';
+	msg += '<p>{{ record.title }}</p>';
+	ctrl.markers.push({
+		lat: 51.48,
+		lng: 0,
+		message: msg,
+		getMessageScope: function() {
+			var scope = $scope.$new();
+			scope.record = record;
+			return scope;
+		}
+	});
 });
 
 angular.module('citizen-engagement').component('issueListElement', {
