@@ -31,8 +31,9 @@ angular.module('citizen-engagement').factory('usersService', function($http, $st
 			template: 'Creating profil...',
 			delay: 750
 		});
-
-		user.roles = ["citizen"];
+		if(user.roles == undefined){
+			user.roles = ["citizen"];
+		}
 		return $http({
 			method: 'POST',
 			url: apiUrl + '/users',
@@ -61,10 +62,9 @@ angular.module('citizen-engagement').factory('usersService', function($http, $st
 			delay: 750
 		});
 
-		user.roles = ["citizen"];
 		return $http({
-			method: 'POST',
-			url: apiUrl + '/users',
+			method: 'PATCH',
+			url: apiUrl + '/users/' + id,
 			data: user
 		}).then(function(res) {
 
@@ -75,11 +75,11 @@ angular.module('citizen-engagement').factory('usersService', function($http, $st
 				historyRoot: true
 			});
 			$ionicLoading.hide();
-			return ctrl.user;
+			return res;
 		}).catch(function(err){
 			$ionicLoading.hide();
 			ctrl.error = err;
-			throw new Error("There was a problem during user's creation");
+			throw new Error("There was a problem during profil update");
 		});
 	}
 

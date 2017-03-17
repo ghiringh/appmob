@@ -13,6 +13,16 @@ angular.module('citizen-engagement').factory('issuesService', function($http, ap
 		});
 	}
 
+	service.getIssueComments = function(id){
+		return $http({
+			method: 'GET',
+			url: apiUrl + '/issues/' + id +'/comments',
+			params:{include : 'author'}
+		}).then(function(res) {
+			return res.data;
+		});
+	}
+
 	return service;
 });
 
@@ -33,12 +43,14 @@ angular.module('citizen-engagement').controller('issueListCtrl', function(issues
 	});
 });
 
-angular.module('citizen-engagement').controller('issueDetailsCtrl', function(issuesService, $stateParams) {
+angular.module('citizen-engagement').controller('issueDetailsCtrl', function(usersService, issuesService, $stateParams) {
 	var ctrl = this;
 	issuesService.getIssue($stateParams.issueId).then(function(data) {
 		ctrl.issue = data;
 	});
-
+	issuesService.getIssueComments($stateParams.issueId).then(function(data) {
+		ctrl.comments = data;
+	});
 });
 
 angular.module('citizen-engagement').controller('issueMapCtrl', function($scope, mapBoxToken) {
@@ -82,4 +94,13 @@ angular.module('citizen-engagement').component('issueListElement', {
 	},
 	controller: 'issueListCtrl',
 	controllerAs: 'issueListCtrl'
+});
+
+angular.module('citizen-engagement').component('issueComment', {
+	templateUrl: 'templates/issueComment.html',
+	bindings: {
+		comment: '<'
+	},
+	controller: 'issueDetailsCtrl',
+	controllerAs: 'issueDetailsCtrl'
 });
