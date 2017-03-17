@@ -51,10 +51,10 @@ angular.module('citizen-engagement').config(function($stateProvider, $urlRouterP
 
 	.state('tab.newIssue', {
 		url: '/newIssue',
-		controller: 'newIssueCtrl',
-		controllerAs: 'newIssueCtrl',
 		views: {
 			'tab-newIssue': {
+				controller: 'newIssueCtrl',
+				controllerAs: 'newIssueCtrl',
 				templateUrl: 'templates/newIssue.html'
 			}
 		}
@@ -73,10 +73,10 @@ angular.module('citizen-engagement').config(function($stateProvider, $urlRouterP
 
 	.state('tab.issueList', {
 		url: '/issueList',
-		controller: 'issueListCtrl',
-		controllerAs: 'issueListCtrl',
 		views: {
 			'tab-issueList': {
+				controller: 'issueListCtrl',
+				controllerAs: 'issueListCtrl',
 				templateUrl: 'templates/issueList.html'
 			}
 		}
@@ -84,10 +84,10 @@ angular.module('citizen-engagement').config(function($stateProvider, $urlRouterP
 
 	.state('tab.profil', {
 		url: '/profil',
-		controller: 'profilCtrl',
-		controllerAs: 'profilCtrl',
 		views: {
 			'tab-profil': {
+				controller: 'profilCtrl',
+				controllerAs: 'profilCtrl',
 				templateUrl: 'templates/profil.html'
 			}
 		}
@@ -95,11 +95,11 @@ angular.module('citizen-engagement').config(function($stateProvider, $urlRouterP
 
 	.state('tab.issueDetails', {
 		url: '/issueDetails/:issueId',
-		controller: 'issueDetailsCtrl',
-		controllerAs: 'issueDetailsCtrl',
 		views: {
 			'tab-issueList': {
-		templateUrl: 'templates/issueDetails.html'
+				controller: 'issueDetailsCtrl',
+				controllerAs: 'issueDetailsCtrl',
+				templateUrl: 'templates/issueDetails.html'
 			}
 		}
 	});

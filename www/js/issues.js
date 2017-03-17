@@ -7,6 +7,12 @@ angular.module('citizen-engagement').factory('issuesService', function($http, ap
 		});
 	}
 
+	service.getIssue = function(id){
+		return $http.get(apiUrl + '/issues/' + id).then(function(res) {
+			return res.data;
+		});
+	}
+
 	return service;
 });
 
@@ -18,13 +24,6 @@ angular.module('citizen-engagement').controller('newIssueCtrl', function(geoloca
 	}).catch(function(err) {
 		$log.error('Could not get location because: ' + err.message);
 	});
-
-	$scope.tags = [
-		{ text: 'just' },
-		{ text: 'some' },
-		{ text: 'cool' },
-		{ text: 'tags' }
-	];
 });
 
 angular.module('citizen-engagement').controller('issueListCtrl', function(issuesService) {
@@ -32,6 +31,14 @@ angular.module('citizen-engagement').controller('issueListCtrl', function(issues
 	issuesService.getIssues().then(function(data) {
 		ctrl.issues = data;
 	});
+});
+
+angular.module('citizen-engagement').controller('issueDetailsCtrl', function(issuesService, $stateParams) {
+	var ctrl = this;
+	issuesService.getIssue($stateParams.issueId).then(function(data) {
+		ctrl.issue = data;
+	});
+
 });
 
 angular.module('citizen-engagement').controller('issueMapCtrl', function($scope, mapBoxToken) {
@@ -73,8 +80,6 @@ angular.module('citizen-engagement').component('issueListElement', {
 	bindings: {
 		issue: '<'
 	},
-	controller: function($scope) {
-		var issueListElementCtrl = this;
-	},
-	controllerAs: 'issueListElementCtrl'
+	controller: 'issueListCtrl',
+	controllerAs: 'issueListCtrl'
 });

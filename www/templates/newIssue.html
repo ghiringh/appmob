@@ -1,4 +1,4 @@
-<ion-view view-title="New Issue" ng-controller="newIssueCtrl as ctrl">
+<ion-view view-title="New Issue">
 	<ion-content>
 			
 		<label class="item item-input">
@@ -30,7 +30,7 @@
 
 		<tags-input ng-model="tags"></tags-input>
 		<p>Tags: {{tags}}</p>
-		<p>latitude: {{ctrl.latitude}}, longitude: {{ctrl.longitude}}</p>
+		<p>latitude: {{newIssueCtrl.latitude}}, longitude: {{newIssueCtrl.longitude}}</p>
 		<button class="button button-full button-positive">Ajouter une photo</button> 
 	</ion-content>
 </ion-view>

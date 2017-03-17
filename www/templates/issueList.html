@@ -1,4 +1,4 @@
-<ion-view view-title="Issue List" ng-controller='issueListCtrl as ctrl'>
+<ion-view view-title="Issue List">
 	<ion-content>
 		<div class="list list-inset">
 			<label class="item item-input">
@@ -8,7 +8,7 @@
 		</div>
 		<p>
 			<ul>
-				<li ng-repeat='issue in ctrl.issues'>
+				<li ng-repeat='issue in issueListCtrl.issues'>
 					<issue-list-element issue='issue'></issue-list-element>
 				</li>
 			</ul>
