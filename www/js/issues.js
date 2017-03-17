@@ -20,10 +20,10 @@ angular.module('citizen-engagement').controller('newIssueCtrl', function(geoloca
 	});
 
 	$scope.tags = [
-		{ text: 'just' },
-		{ text: 'some' },
-		{ text: 'cool' },
-		{ text: 'tags' }
+		{ text: 'Arrêt de bus' },
+		{ text: 'Mur' },
+		{ text: 'Ville' },
+		{ text: 'Banc' }
 	];
 });
 
