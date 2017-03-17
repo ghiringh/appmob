@@ -47,17 +47,13 @@ angular.module('citizen-engagement').factory('LoginService', function(apiUrl, Au
 			AuthService.setAuthToken(res.data.token);
 			AuthService.setUserId(res.data.user.id);
 
-			$ionicLoading.hide();
-
 			$ionicHistory.nextViewOptions({
 				disableBack: true,
 				historyRoot: true
 			});
-
-			$state.go('tab.issueList');
-
+			$ionicLoading.hide();
 			return res;
-		});
+		})
 
 	}
 
@@ -76,20 +72,19 @@ angular.module('citizen-engagement').factory('AuthInterceptor', function(AuthSer
 	};
 });
 
-angular.module('citizen-engagement').controller('LoginCtrl', function(apiUrl, LoginService, AuthService, $http, $ionicHistory, $ionicLoading, $scope, $state) {
-	var loginCtrl = this;
-
+angular.module('citizen-engagement').controller('LoginCtrl', function(AuthService, LoginService, $state, $scope, $ionicLoading) {
+	var ctrl = this;
 	$scope.$on('$ionicView.beforeEnter', function() {
-		loginCtrl.user = {};
+		ctrl.user = {};
 	});
 
-	loginCtrl.logIn = function(){
-
-		delete loginCtrl.error;
-
-		LoginService.login(loginCtrl.user).catch(function(res){
+	ctrl.logIn = function(){
+		LoginService.login(ctrl.user).catch(function(err){
 			$ionicLoading.hide();
-			loginCtrl.error = res;
+			ctrl.error = err;
+			throw new Error("There was a probleme during connexion");
+		}).then(function(){
+			$state.go('tab.issueList');
 		});
 	};
 });

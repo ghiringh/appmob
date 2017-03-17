@@ -1,4 +1,4 @@
-angular.module('citizen-engagement').factory('usersService', function($http, $ionicLoading, $ionicHistory, $state, apiUrl) {
+angular.module('citizen-engagement').factory('usersService', function($http, $state, apiUrl, $ionicHistory, $ionicLoading) {
 	var service = {};
 
 	service.getMe = function(){
@@ -13,10 +13,10 @@ angular.module('citizen-engagement').factory('usersService', function($http, $io
 		});
 	}
 
-	service.postUser = function(user){
+	service.postUser = function(user, ctrl){
 
 		$ionicLoading.show({
-			template: 'Logging in...',
+			template: 'Creating profile...',
 			delay: 750
 		});
 
@@ -27,15 +27,18 @@ angular.module('citizen-engagement').factory('usersService', function($http, $io
 			data: user
 		}).then(function(res) {
 
-			$ionicLoading.hide();
+			delete ctrl.error;
+			
 			$ionicHistory.nextViewOptions({
 				disableBack: true,
 				historyRoot: true
 			});
-
-			$state.go('tab.issueList');
-
-			return res;
+			$ionicLoading.hide();
+			return ctrl.user;
+		}).catch(function(err){
+			$ionicLoading.hide();
+			ctrl.error = err;
+			throw new Error("There was a problem during user's creation");
 		});
 	}
 
@@ -49,19 +52,11 @@ angular.module('citizen-engagement').controller('profilCtrl', function(usersServ
 	});
 });
 
-angular.module('citizen-engagement').controller('addUserCtrl', function(usersService, LoginService, $ionicLoading) {
+angular.module('citizen-engagement').controller('addUserCtrl', function(usersService, LoginService, $state) {
 	var ctrl = this;
 	ctrl.addUser = function(){
-		usersService.postUser(ctrl.user).then(function(res){
-
-			delete ctrl.error;
-			LoginService.login(ctrl.user);
-
-		}).catch(function(res){
-
-			$ionicLoading.hide();
-			ctrl.error = res;
-
+		usersService.postUser(ctrl.user, ctrl).then(LoginService.login).then(function(){
+			$state.go('tab.issueList');
 		});
 	};
 });
