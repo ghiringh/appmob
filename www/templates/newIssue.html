@@ -1,25 +1,29 @@
 <ion-view view-title="New Issue">
 	<ion-content class="padding">
+		<div class="card">
+        	<label class="item item-input">
+				<textarea placeholder="Description"></textarea>
+			</label>
+
+			<label class = "item item-input item-select">
+				<div class = "input-label">Sélectionner un type: </div>
+
+				<select>
+					<option>Graffiti</option>
+					<option>Vitre cassée</option>
+					<option>Affiche vandalisée</option>
+					<option>Crottes de chiens</option>
+				</select>
+			</label>
+
+		<tags-input class="item" ng-model="tags"></tags-input>
 			
-        
-        <label class="item item-input">
-			<textarea placeholder="Description"></textarea>
-		</label>
-
-		<label class = "item item-input item-select">
-			<div class = "input-label">Sélectionner un type: </div>
-
-			<select>
-				<option>Graffiti</option>
-				<option>Vitre cassée</option>
-				<option>Affiche vandalisée</option>
-				<option>Crottes de chiens</option>
-			</select>
-		</label>
-
-		<tags-input ng-model="tags"></tags-input>
+		
 	
-		<p>latitude: {{newIssueCtrl.latitude}}, longitude: {{newIssueCtrl.longitude}}</p>
+		<p class="item">Latitude: {{newIssueCtrl.latitude}}, Longitude: {{newIssueCtrl.longitude}}</p>
+
+	</div>
+
 		<button class="button button-full button-positive">Ajouter une photo</button> 
 	</ion-content>
 </ion-view>
