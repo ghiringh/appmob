@@ -1,7 +1,8 @@
 <div class="list">
-	<a class="item item-thumbnail-left" ui-sref="tab.issueDetails({issueId : issueListCtrl.issue.id})">
-		<img src={{issueListCtrl.issue.imageUrl}}>
-		<h2>{{issueListCtrl.issue.description}}</h2>
-		<p>{{issueListCtrl.issue.state}} • {{issueListCtrl.issue.createdAt | date:"dd/MM/yyyy"}}</p>
+	<a class="item item-thumbnail-left" ui-sref="tab.issueDetails({issueId : issueListElementCtrl.issue.id})">
+		<img src={{issueListElementCtrl.issue.imageUrl}}>
+		<h2>{{issueListElementCtrl.issue.issueType.name}}</h2>
+		<p>{{issueListElementCtrl.issue.description}}</p>
+		<p>{{issueListElementCtrl.issue.state}} • {{issueListElementCtrl.issue.createdAt | date:"d MMMM yyyy"}}</p>
 	</a>
 </div>

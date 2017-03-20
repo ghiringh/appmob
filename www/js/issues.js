@@ -2,7 +2,13 @@ angular.module('citizen-engagement').factory('issuesService', function($http, ap
 	var service = {};
 
 	service.getIssues = function(){
-		return $http.get(apiUrl + '/issues').then(function(res) {
+		return $http({
+			method: 'GET',
+			url: apiUrl + '/issues',
+			params:{
+				include : 'issueType'
+			}
+		}).then(function(res) {
 			return res.data;
 		});
 	}
@@ -23,6 +29,32 @@ angular.module('citizen-engagement').factory('issuesService', function($http, ap
 		});
 	}
 
+	service.getIssuesSearch = function(page, state, search) {
+		page = page || 1;
+
+		console.log(search);
+
+		var requestData = {};
+
+		if (state) {
+			requestData.state = state;
+		}
+		if (search) {
+			requestData.description = {$regex:search};
+		}
+		return $http({
+			method: 'POST',
+			url: apiUrl + '/issues/searches',
+			params: {
+				include : 'issueType',
+				page: page
+			},
+			data: requestData
+		}).then(function(res) {
+			return res.data;
+		});
+	};
+
 	return service;
 });
 
@@ -34,6 +66,11 @@ angular.module('citizen-engagement').factory('mapService', function(geolocation,
 		lng: 6.647260,
 		zoom: 14
 	};
+
+	geolocation.getLocation().then(function(data){
+			service.center.lat = data.coords.latitude;
+			service.center.lng = data.coords.longitude;
+		});
 
 	var mapboxAccessToken = mapBoxToken;
 	var mapboxTileLayerUrl ="https://api.mapbox.com/styles/v1/mapbox/streets-v10/tiles/256/{z}/{x}/{y}?access_token="
@@ -50,22 +87,9 @@ angular.module('citizen-engagement').factory('mapService', function(geolocation,
 			service.markers.push({
 				lat: issue.location.coordinates[1],
 				lng: issue.location.coordinates[0],
-				message: msg,
-				getIssueHref: function() {
-					var scope = $scope.$new();
-					scope.issueHref = 'issueDetails/' + issue.id;
-					return scope;
-				}
+				message: msg
 			});
 		});
-
-		console.log(service.markers);
-		
-	});
-
-	geolocation.getLocation().then(function(data){
-		service.center.lat = data.coords.latitude;
-		service.center.lng = data.coords.longitude;
 	});
 
 	return service;
@@ -83,9 +107,26 @@ angular.module('citizen-engagement').controller('newIssueCtrl', function(geoloca
 
 angular.module('citizen-engagement').controller('issueListCtrl', function(issuesService) {
 	var ctrl = this;
+	var page =  1;
 	issuesService.getIssues().then(function(data) {
 		ctrl.issues = data;
 	});
+	ctrl.update = function(){
+		page = 1;
+		issuesService.getIssuesSearch(page,ctrl.state,ctrl.search).then(function(data){
+			ctrl.issues = data;
+		});
+	};
+	ctrl.loadMore = function(){
+		page = page + 1;
+		issuesService.getIssuesSearch(page,ctrl.state,ctrl.search).then(function(data){
+			ctrl.issues = ctrl.issues.concat(data);
+		});
+	}
+});
+
+angular.module('citizen-engagement').controller('issueListElementCtrl', function() {
+	var ctrl = this;
 });
 
 angular.module('citizen-engagement').controller('issueDetailsCtrl', function(usersService, issuesService, $stateParams) {
@@ -100,7 +141,6 @@ angular.module('citizen-engagement').controller('issueDetailsCtrl', function(use
 
 angular.module('citizen-engagement').controller('issueMapCtrl', function($scope, mapBoxToken, mapService) {
 	var ctrl = this;
-	ctrl.defaults = {};
 	ctrl.markers = mapService.markers;
 	ctrl.center = mapService.center;
 	ctrl.defaults = {
@@ -113,8 +153,8 @@ angular.module('citizen-engagement').component('issueListElement', {
 	bindings: {
 		issue: '<'
 	},
-	controller: 'issueListCtrl',
-	controllerAs: 'issueListCtrl'
+	controller: 'issueListElementCtrl',
+	controllerAs: 'issueListElementCtrl'
 });
 
 angular.module('citizen-engagement').component('issueComment', {

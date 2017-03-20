@@ -3,8 +3,15 @@
 		<div class="list list-inset">
 			<label class="item item-input">
 				<i class="icon ion-search placeholder-icon"></i>
-				<input type="text" placeholder="Search">
+				<input type="text" placeholder="Search" ng-change="issueListCtrl.update()" ng-model="issueListCtrl.search" ng-model-options="{debounce:500}">
 			</label>
+			<!--<ion-radio-group>
+				<ion-radio ng-model="issueListCtrl.state" ng-value="'all'" ng-model="all" ng-checked="all">All</ion-radio>
+				<ion-radio ng-model="issueListCtrl.state" ng-value="'new'">New</ion-radio>
+				<ion-radio ng-model="issueListCtrl.state" ng-value="'inProgress'">In progress</ion-radio>
+				<ion-radio ng-model="issueListCtrl.state" ng-value="'rejected'">Rejected</ion-radio>
+				<ion-radio ng-model="issueListCtrl.state" ng-value="'complete'">Complete</ion-radio>
+			</ion-list>-->
 		</div>
 		<p>
 			<ul>
@@ -13,5 +20,6 @@
 				</li>
 			</ul>
 		</p>
+		<div class="button" ng-click="issueListCtrl.loadMore()"> loadMore </div>
 	</ion-content>
 </ion-view>
