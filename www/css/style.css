@@ -2,7 +2,8 @@
 
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-	color: #444;
+    color: #444;
+}
 
 body{
     font-family: 'Roboto', sans-serif;
@@ -53,6 +54,18 @@ ion-tabs.tabs-color-active-positive .tab-item{
 	background-color: #3D9DD9;
 }
 
+.button.button-positive:active{
+	background-color: #70bcec;
+}
+.button.button-positive:visited{
+	background-color: #70bcec;
+}
+.button.button-positive:hover{
+	background-color: #70bcec;
+}
+
+
+
 .button.button-assertive {
 	background-color: #023E73;
 }
@@ -90,4 +103,30 @@ tags-input .tags .tag-item{
 .imgClean{
     width: 80%;
 padding-left: 50px;
+}
+
+a{
+    text-decoration: none;
+}
+
+.tag{
+    border: 
+}
+
+.logout{
+    background-color: darkgray;
+    color: white;
+}
+
+.logout:hover{
+    background-color:gainsboro;
+    color: white;
+}
+
+.logout:active{
+    background-color:gainsboro;
+    color: white;
+}
+ion-tabs.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-color-active-positive .tab-item.active, ion-tabs.tabs-color-active-positive .tab-item.activated {
+    color:#3D9DD9;
 }
