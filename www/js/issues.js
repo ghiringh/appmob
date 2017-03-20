@@ -26,6 +26,51 @@ angular.module('citizen-engagement').factory('issuesService', function($http, ap
 	return service;
 });
 
+angular.module('citizen-engagement').factory('mapService', function(geolocation, issuesService, mapBoxToken) {
+	var service = {};
+
+	service.center = {
+		lat: 46.780690,
+		lng: 6.647260,
+		zoom: 14
+	};
+
+	var mapboxAccessToken = mapBoxToken;
+	var mapboxTileLayerUrl ="https://api.mapbox.com/styles/v1/mapbox/streets-v10/tiles/256/{z}/{x}/{y}?access_token="
+	service.mapboxTileLayerUrl = mapboxTileLayerUrl + mapboxAccessToken;
+
+	service.markers = [];
+
+	issuesService.getIssues().then(function(data){
+		data.forEach(function(issue){
+			var msg = "<a href='#/tab/issueDetails/" + issue.id + "''>";
+			msg += issue.description;
+			msg += "<img src='"+ issue.imageUrl +"' style='width:100%'>"
+			msg += "</a>";
+			service.markers.push({
+				lat: issue.location.coordinates[1],
+				lng: issue.location.coordinates[0],
+				message: msg,
+				getIssueHref: function() {
+					var scope = $scope.$new();
+					scope.issueHref = 'issueDetails/' + issue.id;
+					return scope;
+				}
+			});
+		});
+
+		console.log(service.markers);
+		
+	});
+
+	geolocation.getLocation().then(function(data){
+		service.center.lat = data.coords.latitude;
+		service.center.lng = data.coords.longitude;
+	});
+
+	return service;
+});
+
 angular.module('citizen-engagement').controller('newIssueCtrl', function(geolocation, $log, $scope) {
 	var ctrl = this;
 	geolocation.getLocation().then(function(data){
@@ -53,38 +98,14 @@ angular.module('citizen-engagement').controller('issueDetailsCtrl', function(use
 	});
 });
 
-angular.module('citizen-engagement').controller('issueMapCtrl', function($scope, mapBoxToken) {
+angular.module('citizen-engagement').controller('issueMapCtrl', function($scope, mapBoxToken, mapService) {
 	var ctrl = this;
 	ctrl.defaults = {};
-	ctrl.markers = [];
-	ctrl.center = {
-		lat: 51.48,
-		lng: 0,
-		zoom: 14
-	};
-	var record = {
-		title: 'Lorem ipsum'
-	};
-	var mapboxMapId = 'mapbox.satellite';
-	var mapboxAccessToken = mapBoxToken;
-	var mapboxTileLayerUrl = 'http://api.tiles.mapbox.com/v4/' + mapboxMapId;
-	mapboxTileLayerUrl = mapboxTileLayerUrl + '/{z}/{x}/{y}.png';
-	mapboxTileLayerUrl = mapboxTileLayerUrl + '?access_token=' + mapboxAccessToken;
+	ctrl.markers = mapService.markers;
+	ctrl.center = mapService.center;
 	ctrl.defaults = {
-		tileLayer: mapboxTileLayerUrl
+		tileLayer: mapService.mapboxTileLayerUrl
 	};
-	var msg = '<p>Hello World!</p>';
-	msg += '<p>{{ record.title }}</p>';
-	ctrl.markers.push({
-		lat: 51.48,
-		lng: 0,
-		message: msg,
-		getMessageScope: function() {
-			var scope = $scope.$new();
-			scope.record = record;
-			return scope;
-		}
-	});
 });
 
 angular.module('citizen-engagement').component('issueListElement', {
