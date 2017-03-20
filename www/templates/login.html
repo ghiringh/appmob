@@ -9,12 +9,12 @@
 		<form name="loginForm">
 			<div class="list">
 				<label class="item item-input item-floating-label">
-					<span class="input-label">Username</span>
-					<input type="text" placeholder="Username" ng-model="loginCtrl.user.name" required />
+					<span class="input-label">Nom d'utilisateur</span>
+					<input type="text" placeholder="Nom d'utilisateur" ng-model="loginCtrl.user.name" required />
 				</label>
 				<label class="item item-input item-floating-label">
-					<span class="input-label">Password</span>
-					<input type="password" placeholder="Password" ng-model="loginCtrl.user.password" required />
+					<span class="input-label">Mot de passe</span>
+					<input type="password" placeholder="Mot de passe" ng-model="loginCtrl.user.password" required />
 				</label>
 			</div>
 			<p ng-if="loginCtrl.error" class="error">{{ loginCtrl.error }}</p>
