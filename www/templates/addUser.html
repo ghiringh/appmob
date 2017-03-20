@@ -6,27 +6,33 @@
 		<form name="addUser">
 
 			<div class="list">
-				<label class="item item-input">
+				<label class="item item-input item-floating-label">
+					<span class="input-label">Username</span>
 					<input type="text" placeholder="Username"  required ng-model="addUserCtrl.user.name"/>
 				</label>
 					
-				<label class="item item-input">
+				<label class="item item-input item-floating-label">
+					<span class="input-label">Password</span>
 					<input type="password" placeholder="Password" required ng-model="addUserCtrl.user.password"/>
 				</label>
 					
-				<label class="item item-input">
+				<label class="item item-input item-floating-label">
+					<span class="input-label">Confirmation password</span>
 					<input type="password" placeholder="Confirmation password" required />
 				</label>
 					
-				<label class="item item-input">
-					<input type="text" placeholder="Prenom"  required ng-model="addUserCtrl.user.firstname"/>
+				<label class="item item-input item-floating-label">
+					<span class="input-label">Prénom</span>
+					<input type="text" placeholder="Prénom"  required ng-model="addUserCtrl.user.firstname"/>
 				</label>
 					
-				<label class="item item-input">
+				<label class="item item-input item-floating-label">
+					<span class="input-label">Nom</span>
 					<input type="text" placeholder="Nom"  required ng-model="addUserCtrl.user.lastname"/>
 				</label>
 					
-				<label class="item item-input">
+				<label class="item item-input item-floating-label">
+					<span class="input-label">Téléphone</span>
 					<input type="text" placeholder="Téléphone"  required ng-model="addUserCtrl.user.phone"/>
 				</label>
 			</div>
