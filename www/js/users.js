@@ -13,14 +13,27 @@ angular.module('citizen-engagement').factory('usersService', function($http, $st
 		});
 	}
 
+	service.getUsers = function(){
+		return $http.get(apiUrl + '/users').then(function(res) {
+			return res.data;
+		});
+	}
+
+	service.getUser = function(id){
+		return $http.get(apiUrl + '/users/' + id).then(function(res) {
+			return res.data;
+		});
+	}
+
 	service.postUser = function(user, ctrl){
 
 		$ionicLoading.show({
-			template: 'Creating profile...',
+			template: 'Creating profil...',
 			delay: 750
 		});
-
-		user.roles = ["citizen"];
+		if(user.roles == undefined){
+			user.roles = ["citizen"];
+		}
 		return $http({
 			method: 'POST',
 			url: apiUrl + '/users',
@@ -39,6 +52,34 @@ angular.module('citizen-engagement').factory('usersService', function($http, $st
 			$ionicLoading.hide();
 			ctrl.error = err;
 			throw new Error("There was a problem during user's creation");
+		});
+	}
+
+	service.patchUser = function(id, user, ctrl){
+
+		$ionicLoading.show({
+			template: 'Updating profil...',
+			delay: 750
+		});
+
+		return $http({
+			method: 'PATCH',
+			url: apiUrl + '/users/' + id,
+			data: user
+		}).then(function(res) {
+
+			delete ctrl.error;
+			
+			$ionicHistory.nextViewOptions({
+				disableBack: true,
+				historyRoot: true
+			});
+			$ionicLoading.hide();
+			return res;
+		}).catch(function(err){
+			$ionicLoading.hide();
+			ctrl.error = err;
+			throw new Error("There was a problem during profil update");
 		});
 	}
 

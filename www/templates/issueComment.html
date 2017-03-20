@@ -1,0 +1,11 @@
+<div class="card">
+	<div class="item item-divider">
+		{{issueDetailsCtrl.comment.author.firstname}} {{issueDetailsCtrl.comment.author.lastname}}
+	</div>
+	<div class="item item-text-wrap">
+		{{issueDetailsCtrl.comment.text}}
+	</div>
+	<div class="item item-divider">
+		{{issueDetailsCtrl.comment.createdAt | date:"d MMMM yyyy"}}
+	</div>
+</div>

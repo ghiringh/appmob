@@ -7,6 +7,22 @@ angular.module('citizen-engagement').factory('issuesService', function($http, ap
 		});
 	}
 
+	service.getIssue = function(id){
+		return $http.get(apiUrl + '/issues/' + id).then(function(res) {
+			return res.data;
+		});
+	}
+
+	service.getIssueComments = function(id){
+		return $http({
+			method: 'GET',
+			url: apiUrl + '/issues/' + id +'/comments',
+			params:{include : 'author'}
+		}).then(function(res) {
+			return res.data;
+		});
+	}
+
 	return service;
 });
 
@@ -18,19 +34,22 @@ angular.module('citizen-engagement').controller('newIssueCtrl', function(geoloca
 	}).catch(function(err) {
 		$log.error('Could not get location because: ' + err.message);
 	});
-
-	$scope.tags = [
-		{ text: 'Arrêt de bus' },
-		{ text: 'Mur' },
-		{ text: 'Ville' },
-		{ text: 'Banc' }
-	];
 });
 
 angular.module('citizen-engagement').controller('issueListCtrl', function(issuesService) {
 	var ctrl = this;
 	issuesService.getIssues().then(function(data) {
 		ctrl.issues = data;
+	});
+});
+
+angular.module('citizen-engagement').controller('issueDetailsCtrl', function(usersService, issuesService, $stateParams) {
+	var ctrl = this;
+	issuesService.getIssue($stateParams.issueId).then(function(data) {
+		ctrl.issue = data;
+	});
+	issuesService.getIssueComments($stateParams.issueId).then(function(data) {
+		ctrl.comments = data;
 	});
 });
 
@@ -73,8 +92,15 @@ angular.module('citizen-engagement').component('issueListElement', {
 	bindings: {
 		issue: '<'
 	},
-	controller: function($scope) {
-		var issueListElementCtrl = this;
+	controller: 'issueListCtrl',
+	controllerAs: 'issueListCtrl'
+});
+
+angular.module('citizen-engagement').component('issueComment', {
+	templateUrl: 'templates/issueComment.html',
+	bindings: {
+		comment: '<'
 	},
-	controllerAs: 'issueListElementCtrl'
+	controller: 'issueDetailsCtrl',
+	controllerAs: 'issueDetailsCtrl'
 });

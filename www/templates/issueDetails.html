@@ -6,8 +6,8 @@
 					<h1>Détails de l'issue</h1>
 			</div>
 			<div class="item item-body">
-				<img class="full-image" src="my-image.png">
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eget pharetra tortor. Proin quis eros imperdiet, facilisis nisi in, tincidunt orci. Nam tristique elit massa, quis faucibus augue finibus ac.
+				<img class="full-image" src="{{issueDetailsCtrl.issue.imageUrl}}">
+				{{issueDetailsCtrl.issue.description}}
 			</div>
 		</div>
 			
@@ -16,14 +16,25 @@
 				<div class="item item-text-wrap">Tags:</div>
 		</div>
 		
+		<h3>Ajouter un commentaire</h3>
+
+		<div class="list card">
+			<label class="item item-input">
+				<input type="text" placeholder="Nom et prénom">
+			</label>
+			<label class="item item-input">
+				<textarea placeholder="Commentaire"></textarea>
+			</label>
+		</div>
+		<button class="button button-full button-positive">Envoyer</button> 
+		
 		<h3>Commentaires</h3>
 
-		<div class="card">
-			<p class="auteur">LapinBleu</p>
-			<div class="item item-text-wrap">
-				This is a basic Card which contains an item that has wrapping text.
-			</div>
-		</div>
+		<ul>
+			<li ng-repeat='comment in issueDetailsCtrl.comments'>
+				<issue-comment comment='comment'></issue-comment>
+			</li>
+		</ul>
 
 		<div class="card">
 			<p class="auteur">LapinBleu</p>
@@ -38,17 +49,5 @@
 				This is a basic Card which contains an item that has wrapping text.
 			</div>
 		</div>
-		
-		<h3>Ajouter un commentaire</h3>
-
-		<div class="list card">
-			<label class="item item-input">
-				<input type="text" placeholder="Nom et prénom">
-			</label>
-			<label class="item item-input">
-				<textarea placeholder="Commentaire"></textarea>
-			</label>
-		</div>
-		<button class="button button-full button-positive">Envoyer</button> 
 	</ion-content>
 </ion-view>
