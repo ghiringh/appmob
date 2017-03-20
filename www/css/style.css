@@ -1,5 +1,10 @@
 /* Empty. Add your own CSS if you like */
 
+
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
 #listeIssues{
      text-decoration:none; 
 
@@ -23,7 +28,9 @@
 }
 
 .accueil{
-    text-align: center;    
+    text-align: center; 
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .fin{
