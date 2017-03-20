@@ -42,6 +42,11 @@ angular.module('citizen-engagement').config(function($stateProvider, $urlRouterP
 		controllerAs: 'addUserCtrl',
 		templateUrl: 'templates/addUser.html'
 	})
+    
+    .state('help', {
+		url: '/help',
+		templateUrl: 'templates/help.html'
+	})
 
 	.state('tab', {
 		url: '/tab',
