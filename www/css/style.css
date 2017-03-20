@@ -1,15 +1,63 @@
 /* Empty. Add your own CSS if you like */
 
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+	color: #444;
+}
+
 #listeIssues{
      text-decoration:none; 
 
 }
+
+
 .auteur{
     padding-left: 10px;
-    background-color: gray;
+    background-color: #0D2340;
     color: white;
     font-weight: bold;
     padding-top: 5px;
     padding-bottom: 5px;
     margin-bottom: -5px;
+}
+
+.bar.bar-stable {
+    border-color: #b2b2b2;
+    background-color: #0D2340;
+    background-image: linear-gradient(0deg, #b2b2b2, #b2b2b2 50%, transparent 50%);
+    color: #fff;
+    
+}
+
+.bar.bar-stable .title{
+	color: #fff;
+}
+
+.bar-stable .button.button-clear{
+	color: #fff;
+}
+
+.tab-nav{
+background-color: #0D2340
+
+}
+
+ion-tabs.tabs-color-active-positive .tab-item{
+	color: #fff;
+}
+
+
+.button.button-positive{
+	background-color: #3D9DD9;
+}
+
+.button.button-assertive {
+	background-color: #023E73;
+}
+
+.item-divider {
+	color: #444;
+}
+
+tags-input .tags{
+	box-shadow:none !important;
 }
