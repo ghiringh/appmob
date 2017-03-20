@@ -13,3 +13,24 @@
     padding-bottom: 5px;
     margin-bottom: -5px;
 }
+
+.skipbutton{
+    text-align: right;
+}
+
+.imgLogo{
+    width: 100%;
+}
+
+.accueil{
+    text-align: center;    
+}
+
+.fin{
+    text-align: center;     
+}
+
+.imgClean{
+    width: 80%;
+padding-left: 50px;
+}
