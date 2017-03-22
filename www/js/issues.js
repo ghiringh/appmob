@@ -81,6 +81,7 @@ angular.module('citizen-engagement').factory('mapService', function(geolocation,
 	issuesService.getIssues().then(function(data){
 		data.forEach(function(issue){
 			var msg = "<a href='#/tab/issueDetails/" + issue.id + "''>";
+			msg += "<h4>" + issue.issueType.name + "</h4>"
 			msg += issue.description;
 			msg += "<img src='"+ issue.imageUrl +"' style='width:100%'>"
 			msg += "</a>";
