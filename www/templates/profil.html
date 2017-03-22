@@ -1,4 +1,4 @@
-<ion-view view-title="User profil">
+<ion-view view-title="Mon profil">
 	<ion-nav-buttons side="secondary">
 	</ion-nav-buttons>
 	<ion-content class="padding">
@@ -6,13 +6,17 @@
 			<div class="item item-avatar">
 				<h1>Mon profil</h1>
 			</div>	
+
+
+
 			<div class="userInfos">
 				<label class="item item-input">
-					<input type="text" placeholder="Username" required />
+				
+					<input type="text" placeholder="Nom d'utilisateur" required />
 				</label>
 
 				<label class="item item-input">
-					<input type="password" placeholder="Password" required />
+					<input type="password" placeholder="Mot de passe" required />
 				</label>
 
 				 <label class="item item-input">
@@ -27,9 +31,12 @@
 					<input type="text" placeholder="Téléphone" required />
 				</label>
 			</div>
+
 		</div>
 
+
+
 		<button class="button button-full button-positive">Enregistrer</button>
-		<button type="button" ng-controller="LogoutCtrl as logoutCtrl" ng-click="logoutCtrl.logOut()" class="button button-full button-assertive">Log Out</button>
+		<button type="button" ng-controller="LogoutCtrl as logoutCtrl" ng-click="logoutCtrl.logOut()" class="button button-full logout">Déconnexion</button>
 	</ion-content>
 </ion-view>

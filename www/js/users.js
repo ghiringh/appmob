@@ -97,7 +97,7 @@ angular.module('citizen-engagement').controller('addUserCtrl', function(usersSer
 	var ctrl = this;
 	ctrl.addUser = function(){
 		usersService.postUser(ctrl.user, ctrl).then(LoginService.login).then(function(){
-			$state.go('tab.issueList');
+			$state.go('help');
 		});
 	};
 });

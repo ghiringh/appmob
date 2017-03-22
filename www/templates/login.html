@@ -1,5 +1,6 @@
 <ion-view view-title="Connexion">
 	<ion-content class="padding">
+        
 		<div class="card">
 			<div class="item item-text-wrap">
 				Bienvenue sur Citizen Engagement! Connectez-vous pour utiliser l'application.
@@ -7,11 +8,13 @@
 		</div>
 		<form name="loginForm">
 			<div class="list">
-				<label class="item item-input">
-					<input type="text" placeholder="Username" ng-model="loginCtrl.user.name" required />
+				<label class="item item-input item-floating-label">
+					<span class="input-label">Nom d'utilisateur</span>
+					<input type="text" placeholder="Nom d'utilisateur" ng-model="loginCtrl.user.name" required />
 				</label>
-				<label class="item item-input">
-					<input type="password" placeholder="Password" ng-model="loginCtrl.user.password" required />
+				<label class="item item-input item-floating-label">
+					<span class="input-label">Mot de passe</span>
+					<input type="password" placeholder="Mot de passe" ng-model="loginCtrl.user.password" required />
 				</label>
 			</div>
 			<p ng-if="loginCtrl.error" class="error">{{ loginCtrl.error }}</p>
