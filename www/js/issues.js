@@ -55,6 +55,25 @@ angular.module('citizen-engagement').factory('issuesService', function($http, ap
 		});
 	};
 
+	service.getIssueTypes = function getAllIssueTypes(page, types) {
+		page = page || 1;
+		types = types || [];
+
+		return $http({
+			method: 'GET',
+			url: apiUrl + '/issueTypes',
+			params: {
+				page: page
+			}
+		}).then(function(res) {
+			if (res.data.length) {
+    			types = types.concat(res.data);
+				return getAllIssueTypes(page + 1, types);
+    		}
+			return types;
+		});
+	}
+
 	return service;
 });
 
@@ -96,13 +115,16 @@ angular.module('citizen-engagement').factory('mapService', function(geolocation,
 	return service;
 });
 
-angular.module('citizen-engagement').controller('newIssueCtrl', function(geolocation, $log, $scope) {
+angular.module('citizen-engagement').controller('newIssueCtrl', function(geolocation, issuesService, $log, $scope) {
 	var ctrl = this;
 	geolocation.getLocation().then(function(data){
 		ctrl.latitude = data.coords.latitude;
 		ctrl.longitude = data.coords.longitude;
 	}).catch(function(err) {
 		$log.error('Could not get location because: ' + err.message);
+	});
+	issuesService.getIssueTypes().then(function(data){
+		ctrl.issueTypes = data;
 	});
 });
 

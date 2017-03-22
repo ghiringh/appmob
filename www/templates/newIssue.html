@@ -7,12 +7,8 @@
 
 			<label class = "item item-input item-select">
 				<div class = "input-label">Sélectionner un type: </div>
-
 				<select>
-					<option>Graffiti</option>
-					<option>Vitre cassée</option>
-					<option>Affiche vandalisée</option>
-					<option>Crottes de chiens</option>
+					<option ng-repeat='type in newIssueCtrl.issueTypes'>{{type.name}}</option>
 				</select>
 			</label>
 
