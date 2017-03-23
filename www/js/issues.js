@@ -74,6 +74,33 @@ angular.module('citizen-engagement').factory('issuesService', function($http, ap
 		});
 	}
 
+	service.postIssue = function(issue, ctrl){
+
+		$ionicLoading.show({
+			template: 'Creating profil...',
+			delay: 750
+		});
+		return $http({
+			method: 'POST',
+			url: apiUrl + '/issues',
+			data: issue
+		}).then(function(res) {
+
+			delete ctrl.error;
+			
+			$ionicHistory.nextViewOptions({
+				disableBack: true,
+				historyRoot: true
+			});
+			$ionicLoading.hide();
+			return ctrl.issue;
+		}).catch(function(err){
+			$ionicLoading.hide();
+			ctrl.error = err;
+			throw new Error("There was a problem during issue's creation");
+		});
+	}
+
 	return service;
 });
 
@@ -126,6 +153,16 @@ angular.module('citizen-engagement').controller('newIssueCtrl', function(geoloca
 	issuesService.getIssueTypes().then(function(data){
 		ctrl.issueTypes = data;
 	});
+	ctrl.addIssue = function(){
+		issuesService.postIssue(ctrl.issue, ctrl)
+		issuesService.postUser(ctrl.user, ctrl).then(function(){
+			$state.go('issueList');
+		});
+	};
+	ctrl.showIssue = function(){
+		console.log(ctrl.issue);
+		console.log(ctrl.error);
+	}
 });
 
 angular.module('citizen-engagement').controller('issueListCtrl', function(issuesService) {
