@@ -1,6 +1,5 @@
 angular.module('citizen-engagement').controller('NewIssueController', function(CameraService, $log) {
   var newIssueCtrl = this;
-    
   newIssueCtrl.takePicture = function() {
       
        if (!CameraService.isSupported()) {
