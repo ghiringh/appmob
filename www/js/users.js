@@ -93,11 +93,11 @@ angular.module('citizen-engagement').controller('profilCtrl', function(usersServ
 	});
 });
 
-angular.module('citizen-engagement').controller('addUserCtrl', function(usersService, LoginService, $state) {
+angular.module('citizen-engagement').controller('addUserCtrl', function(usersService, LoginService, $state, $ionicLoading) {
 	var ctrl = this;
 	ctrl.addUser = function(){
 		usersService.postUser(ctrl.user, ctrl).then(LoginService.login).then(function(){
 			$state.go('help');
-		});
+		}).catch(function(err){$ionicLoading.hide(); ctrl.error = err});
 	};
 });
