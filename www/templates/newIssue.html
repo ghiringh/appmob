@@ -1,30 +1,30 @@
 <ion-view view-title="Déclarer un problème">
 	<ion-content class="padding">
-		<div class="card">
-        	<label class="item item-input">
-				<textarea placeholder="Description"></textarea>
-			</label>
+		<form name="addIssue">
+			<div class="card">
+				<label class="item item-input">
+					<textarea placeholder="Description" ng-model="newIssueCtrl.issue.description"></textarea>
+				</label>
 
-			<label class = "item item-input item-select">
-				<div class = "input-label">Sélectionner un type: </div>
+				<label class = "item item-input item-select">
+					<div class = "input-label">Sélectionner un type: </div>
+					<select ng-model="newIssueCtrl.issue.issueTypeHref">
+						<option ng-repeat='type in newIssueCtrl.issueTypes' ng-value="type.href">{{type.name}}</option>
+					</select>
+				</label>
 
-				<select>
-					<option>Graffiti</option>
-					<option>Vitre cassée</option>
-					<option>Affiche vandalisée</option>
-					<option>Crottes de chiens</option>
-				</select>
-			</label>
+				
+            <tags-input class="item" ng-model="tags" placeholder="Ajouter des tags"></tags-input>
+				
+				<p class="item">Latitude: {{newIssueCtrl.latitude}}, Longitude: {{newIssueCtrl.longitude}}</p>
+                
+                	</div>
 
-		<tags-input class="item" ng-model="tags" placeholder="Ajouter des tags"></tags-input>
-			
-		
-	
-		<p class="item">Latitude: {{newIssueCtrl.latitude}}, Longitude: {{newIssueCtrl.longitude}}</p>
-
-	</div>
         <button class="button button-full button-positive ng-click='newIssueCtrl.takePicture()'">Ajouter une photo</button> 
             <img ng-if='myCtrl.pictureData' width='100%'
                  ng-src='data:image/png;base64,{{ myCtrl.pictureData }}' />
+            
+            <button class="button button-full button-positive" ng-click="newIssueCtrl.showIssue()" ng-disabled="addIssue.$invalid">Enregistrer</button>
+		</form>
 	</ion-content>
 </ion-view>
