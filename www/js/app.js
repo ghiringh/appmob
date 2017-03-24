@@ -116,3 +116,4 @@ angular.module('citizen-engagement').config(function($stateProvider, $urlRouterP
 	$logProvider.debugEnabled(false);
 	$httpProvider.interceptors.push('AuthInterceptor');
 });
+
