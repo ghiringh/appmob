@@ -7,18 +7,23 @@
 				</label>
 
 				<label class = "item item-input item-select">
-					<div class = "input-label">Sélectionner un type: </div>
-					<select ng-model="newIssueCtrl.issue.issueTypeHref">
+					<div class = "input-label">Sélectionner un type : </div>
+					<select ng-model="newIssueCtrl.issue.issueTypeHref" required>
 						<option ng-repeat='type in newIssueCtrl.issueTypes' ng-value="type.href">{{type.name}}</option>
 					</select>
 				</label>
 
-				<tags-input class="item" ng-model="tags" placeholder="Ajouter des tags"></tags-input>
-				
-				<p class="item">Latitude: {{newIssueCtrl.latitude}}, Longitude: {{newIssueCtrl.longitude}}</p>
+				<label class="item item-input">Latitude : {{newIssueCtrl.latitude}}
+				</label>
+				<label class="item item-input">Longitude : {{newIssueCtrl.longitude}}
+				</label>
+
+				<tags-input class="item" ng-model="newIssueCtrl.tags" placeholder="Ajouter des tags"></tags-input>
 			</div>
 			<button class="button button-full button-positive">Ajouter une photo</button>
-			<button class="button button-full button-positive" ng-click="newIssueCtrl.showIssue()" ng-disabled="addIssue.$invalid">Enregistrer</button>
+			<button class="button button-full button-positive" ng-click="newIssueCtrl.addIssue()" ng-disabled="addIssue.$invalid">Enregistrer</button>
 		</form>
+		<p>{{newIssueCtrl.error}}</p>
+		<p>{{newIssueCtrl.message}}</p>
 	</ion-content>
 </ion-view>

@@ -1,4 +1,4 @@
-angular.module('citizen-engagement').factory('issuesService', function($http, apiUrl) {
+angular.module('citizen-engagement').factory('issuesService', function($http, apiUrl, $ionicHistory, $ionicLoading) {
 	var service = {};
 
 	service.getIssues = function(){
@@ -56,6 +56,12 @@ angular.module('citizen-engagement').factory('issuesService', function($http, ap
 	};
 
 	service.getIssueTypes = function getAllIssueTypes(page, types) {
+		
+		$ionicLoading.show({
+			template: 'Retrieving Issue Types...',
+			delay: 750
+		});
+
 		page = page || 1;
 		types = types || [];
 
@@ -70,16 +76,41 @@ angular.module('citizen-engagement').factory('issuesService', function($http, ap
     			types = types.concat(res.data);
 				return getAllIssueTypes(page + 1, types);
     		}
+
+    		$ionicHistory.nextViewOptions({
+				disableBack: true,
+				historyRoot: true
+			});
+			$ionicLoading.hide();
+
 			return types;
+		}).catch(function(err){
+			$ionicLoading.hide();
+			ctrl.error = err;
+			throw new Error("There was a problem during issueTypes retrieve");
 		});
 	}
 
 	service.postIssue = function(issue, ctrl){
 
 		$ionicLoading.show({
-			template: 'Creating profil...',
+			template: 'Creating Issue...',
 			delay: 750
 		});
+
+		if(issue.location == undefined){
+			issue.location = {};
+			issue.location.type = "Point";
+			issue.location.coordinates = [ctrl.latitude, ctrl.longitude];
+		}
+		if(issue.tags == undefined){
+			issue.tags = [];
+			ctrl.tags.forEach(function(tag){
+				issue.tags.push(tag.text);
+			})
+			console.log(issue.tags);
+		}
+
 		return $http({
 			method: 'POST',
 			url: apiUrl + '/issues',
@@ -142,8 +173,9 @@ angular.module('citizen-engagement').factory('mapService', function(geolocation,
 	return service;
 });
 
-angular.module('citizen-engagement').controller('newIssueCtrl', function(geolocation, issuesService, $log, $scope) {
+angular.module('citizen-engagement').controller('newIssueCtrl', function(geolocation, issuesService, $log, $scope, $state) {
 	var ctrl = this;
+	ctrl.issue = {};
 	geolocation.getLocation().then(function(data){
 		ctrl.latitude = data.coords.latitude;
 		ctrl.longitude = data.coords.longitude;
@@ -154,15 +186,10 @@ angular.module('citizen-engagement').controller('newIssueCtrl', function(geoloca
 		ctrl.issueTypes = data;
 	});
 	ctrl.addIssue = function(){
-		issuesService.postIssue(ctrl.issue, ctrl)
-		issuesService.postUser(ctrl.user, ctrl).then(function(){
-			$state.go('issueList');
+		issuesService.postIssue(ctrl.issue, ctrl).then(function(){
+			$state.go('tab.issueList');
 		});
 	};
-	ctrl.showIssue = function(){
-		console.log(ctrl.issue);
-		console.log(ctrl.error);
-	}
 });
 
 angular.module('citizen-engagement').controller('issueListCtrl', function(issuesService) {
