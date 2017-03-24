@@ -202,7 +202,7 @@ angular.module('citizen-engagement').controller('newIssueCtrl', function(geoloca
 			
 		CameraService.getPicture().then(function(result) {
 			$log.debug('Picture taken!');
-			newIssueCtrl.pictureData = result;
+			ctrl.pictureData = result;
 		}).catch(function(err) {
 			$log.error('Impossible de prendre une photo car : ' + err.message);
 		});

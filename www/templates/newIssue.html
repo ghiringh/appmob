@@ -3,7 +3,7 @@
 		<form name="addIssue">
 			<div class="card">
 				<label class="item item-input">
-					<textarea placeholder="Description" ng-model="newIssueCtrl.issue.description"></textarea>
+					<textarea placeholder="Description" ng-model="newIssueCtrl.issue.description" required></textarea>
 				</label>
 
 				<label class = "item item-input item-select">
@@ -20,10 +20,11 @@
 
 				<tags-input class="item" ng-model="newIssueCtrl.tags" placeholder="Ajouter des tags"></tags-input>
 			</div>
+			<img ng-if='newIssueCtrl.pictureData' width='33%' ng-src='data:image/png;base64,{{ newIssueCtrl.pictureData }}'/>
 			<button class="button button-full button-positive" ng-click="newIssueCtrl.takePicture()">Ajouter une photo</button>
 			<button class="button button-full button-positive" ng-click="newIssueCtrl.addIssue()" ng-disabled="addIssue.$invalid">Enregistrer</button>
 		</form>
 		<p>{{newIssueCtrl.error}}</p>
-		<p>{{newIssueCtrl.message}}</p>
+		<p>{{newIssueCtrl.pictureData}}</p>
 	</ion-content>
 </ion-view>
