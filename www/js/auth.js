@@ -63,7 +63,7 @@ angular.module('citizen-engagement').factory('LoginService', function(apiUrl, Au
 angular.module('citizen-engagement').factory('AuthInterceptor', function(AuthService) {
 	return {
 		request: function(config) {
-			if (AuthService.authToken) {
+			if (AuthService.authToken && !config.headers.Authorization) {
 				config.headers.Authorization = 'Bearer ' + AuthService.authToken;
 			}
 

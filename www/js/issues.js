@@ -1,4 +1,4 @@
-angular.module('citizen-engagement').factory('issuesService', function($http, apiUrl, $ionicHistory, $ionicLoading) {
+angular.module('citizen-engagement').factory('issuesService', function($http, apiUrl, qimgUrl, qimgToken, $ionicHistory, $ionicLoading, $ionicPopup) {
 	var service = {};
 
 	service.getIssues = function(){
@@ -91,6 +91,29 @@ angular.module('citizen-engagement').factory('issuesService', function($http, ap
 		});
 	}
 
+	service.uploadPicture = function(pictureData, ctrl){
+		$ionicLoading.show({
+			template: 'Enregistrement de la photo...',
+			delay: 750
+		});
+
+		return $http({
+			method: 'POST',
+			headers: {'Authorization' : 'Bearer ' + qimgToken},
+			url: qimgUrl + '/images',
+			data: {
+				data : pictureData
+			}
+		}).then(function(res){
+			ctrl.issue.imageUrl = res.data.url;
+			$ionicLoading.hide();
+		}).catch(function(err){
+			$ionicLoading.hide();
+			ctrl.error = err
+			throw new Error("Impossible d'obtenir un lien pour la photo");
+		});
+	}
+
 	service.postIssue = function(issue, ctrl){
 
 		$ionicLoading.show({
@@ -103,7 +126,8 @@ angular.module('citizen-engagement').factory('issuesService', function($http, ap
 			issue.location.type = "Point";
 			issue.location.coordinates = [ctrl.latitude, ctrl.longitude];
 		}
-		if(issue.tags == undefined){
+
+		if(issue.tags == undefined && ctrl.tags !== undefined){
 			issue.tags = [];
 			ctrl.tags.forEach(function(tag){
 				issue.tags.push(tag.text);
@@ -119,10 +143,6 @@ angular.module('citizen-engagement').factory('issuesService', function($http, ap
 
 			delete ctrl.error;
 			
-			$ionicHistory.nextViewOptions({
-				disableBack: true,
-				historyRoot: true
-			});
 			$ionicLoading.hide();
 			return ctrl.issue;
 		}).catch(function(err){
@@ -188,6 +208,10 @@ angular.module('citizen-engagement').controller('newIssueCtrl', function(geoloca
 	ctrl.addIssue = function(){
 		issuesService.postIssue(ctrl.issue, ctrl).then(function(){
 			$state.go('tab.issueList');
+		}).catch(function(err){
+			$ionicLoading.hide();
+			ctrl.error = err;
+			throw new Error("Une erreur est survenue lors de l'enregistrement du problème");
 		});
 	};
 
@@ -201,10 +225,8 @@ angular.module('citizen-engagement').controller('newIssueCtrl', function(geoloca
 		}
 			
 		CameraService.getPicture().then(function(result) {
-			$log.debug('Picture taken!');
 			ctrl.pictureData = result;
-		}).catch(function(err) {
-			$log.error('Impossible de prendre une photo car : ' + err.message);
+			issuesService.uploadPicture(result, ctrl);
 		});
 	};
 });
