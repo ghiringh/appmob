@@ -28,7 +28,7 @@ angular.module('citizen-engagement').factory('usersService', function($http, $st
 	service.postUser = function(user, ctrl){
 
 		$ionicLoading.show({
-			template: 'Creating profil...',
+			template: 'Création du profil...',
 			delay: 750
 		});
 		if(user.roles == undefined){
@@ -51,14 +51,14 @@ angular.module('citizen-engagement').factory('usersService', function($http, $st
 		}).catch(function(err){
 			$ionicLoading.hide();
 			ctrl.error = err;
-			throw new Error("There was a problem during user's creation");
+			throw new Error("Une erreur est survenue lors de la création du profil");
 		});
 	}
 
 	service.patchUser = function(id, user, ctrl){
 
 		$ionicLoading.show({
-			template: 'Updating profil...',
+			template: 'Mise à jour du profil...',
 			delay: 750
 		});
 
@@ -79,7 +79,7 @@ angular.module('citizen-engagement').factory('usersService', function($http, $st
 		}).catch(function(err){
 			$ionicLoading.hide();
 			ctrl.error = err;
-			throw new Error("There was a problem during profil update");
+			throw new Error("Une erreur est survenue lors de la mise à jour du profil");
 		});
 	}
 
@@ -93,11 +93,11 @@ angular.module('citizen-engagement').controller('profilCtrl', function(usersServ
 	});
 });
 
-angular.module('citizen-engagement').controller('addUserCtrl', function(usersService, LoginService, $state) {
+angular.module('citizen-engagement').controller('addUserCtrl', function(usersService, LoginService, $state, $ionicLoading) {
 	var ctrl = this;
 	ctrl.addUser = function(){
 		usersService.postUser(ctrl.user, ctrl).then(LoginService.login).then(function(){
 			$state.go('help');
-		});
+		}).catch(function(err){$ionicLoading.hide(); ctrl.error = err});
 	};
 });

@@ -34,7 +34,7 @@ angular.module('citizen-engagement').factory('LoginService', function(apiUrl, Au
 	service.login = function(user){
 
 		$ionicLoading.show({
-			template: 'Logging in...',
+			template: 'Connexion...',
 			delay: 750
 		});
 
@@ -82,7 +82,7 @@ angular.module('citizen-engagement').controller('LoginCtrl', function(AuthServic
 		LoginService.login(ctrl.user).catch(function(err){
 			$ionicLoading.hide();
 			ctrl.error = err;
-			throw new Error("There was a probleme during connexion");
+			throw new Error("Une erreur est survenue lors de la connexion");
 		}).then(function(){
 			$state.go('tab.issueList');
 		});

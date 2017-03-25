@@ -3,28 +3,29 @@
 		<form name="addIssue">
 			<div class="card">
 				<label class="item item-input">
-					<textarea placeholder="Description" ng-model="newIssueCtrl.issue.description"></textarea>
+					<textarea placeholder="Description" ng-model="newIssueCtrl.issue.description" required></textarea>
 				</label>
 
 				<label class = "item item-input item-select">
-					<div class = "input-label">Sélectionner un type: </div>
-					<select ng-model="newIssueCtrl.issue.issueTypeHref">
+					<div class = "input-label">Sélectionner un type : </div>
+					<select ng-model="newIssueCtrl.issue.issueTypeHref" required>
 						<option ng-repeat='type in newIssueCtrl.issueTypes' ng-value="type.href">{{type.name}}</option>
 					</select>
 				</label>
 
-				
-            <tags-input class="item" ng-model="tags" placeholder="Ajouter des tags"></tags-input>
-				
-				<p class="item">Latitude: {{newIssueCtrl.latitude}}, Longitude: {{newIssueCtrl.longitude}}</p>
-                
-                	</div>
+				<label class="item item-input">Latitude : {{newIssueCtrl.latitude}}
+				</label>
+				<label class="item item-input">Longitude : {{newIssueCtrl.longitude}}
+				</label>
 
-        <button class="button button-full button-positive" ng-click='newIssueCtrl.takePicture()'>Ajouter une photo</button> 
-            <img ng-if='myCtrl.pictureData' width='100%'
-                 ng-src='data:image/png;base64,{{ myCtrl.pictureData }}' />
-            
-            <button class="button button-full button-positive" ng-click="newIssueCtrl.showIssue()" ng-disabled="addIssue.$invalid">Enregistrer</button>
+
+				<tags-input class="item" ng-model="newIssueCtrl.tags" placeholder="Ajouter des tags"></tags-input>
+			</div>
+			<img ng-if='newIssueCtrl.pictureData' width='33%' ng-src='data:image/png;base64,{{ newIssueCtrl.pictureData }}'/>
+			<button class="button button-full button-positive" ng-click="newIssueCtrl.takePicture()">Ajouter une photo</button>
+			<button class="button button-full button-positive" ng-click="newIssueCtrl.addIssue()" ng-disabled="addIssue.$invalid">Enregistrer</button>
 		</form>
+		<p>{{newIssueCtrl.error}}</p>
+		<p>{{newIssueCtrl.pictureData}}</p>
 	</ion-content>
 </ion-view>

@@ -1,4 +1,4 @@
-angular.module('citizen-engagement').factory('issuesService', function($http, apiUrl) {
+angular.module('citizen-engagement').factory('issuesService', function($http, apiUrl, $ionicHistory, $ionicLoading) {
 	var service = {};
 
 	service.getIssues = function(){
@@ -56,6 +56,12 @@ angular.module('citizen-engagement').factory('issuesService', function($http, ap
 	};
 
 	service.getIssueTypes = function getAllIssueTypes(page, types) {
+		
+		$ionicLoading.show({
+			template: 'Chargement des types de problèmes...',
+			delay: 750
+		});
+
 		page = page || 1;
 		types = types || [];
 
@@ -67,19 +73,44 @@ angular.module('citizen-engagement').factory('issuesService', function($http, ap
 			}
 		}).then(function(res) {
 			if (res.data.length) {
-    			types = types.concat(res.data);
+					types = types.concat(res.data);
 				return getAllIssueTypes(page + 1, types);
-    		}
+				}
+
+				$ionicHistory.nextViewOptions({
+				disableBack: true,
+				historyRoot: true
+			});
+			$ionicLoading.hide();
+
 			return types;
+		}).catch(function(err){
+			$ionicLoading.hide();
+			ctrl.error = err;
+			throw new Error("Une erreur est survenue lors de l'obtention des types de problèmes");
 		});
 	}
 
 	service.postIssue = function(issue, ctrl){
 
 		$ionicLoading.show({
-			template: 'Creating profil...',
+			template: 'Enregistrement du problème...',
 			delay: 750
 		});
+
+		if(issue.location == undefined){
+			issue.location = {};
+			issue.location.type = "Point";
+			issue.location.coordinates = [ctrl.latitude, ctrl.longitude];
+		}
+		if(issue.tags == undefined){
+			issue.tags = [];
+			ctrl.tags.forEach(function(tag){
+				issue.tags.push(tag.text);
+			})
+			console.log(issue.tags);
+		}
+
 		return $http({
 			method: 'POST',
 			url: apiUrl + '/issues',
@@ -97,7 +128,7 @@ angular.module('citizen-engagement').factory('issuesService', function($http, ap
 		}).catch(function(err){
 			$ionicLoading.hide();
 			ctrl.error = err;
-			throw new Error("There was a problem during issue's creation");
+			throw new Error("Une erreur est survenue lors de l'enregistrement du problème");
 		});
 	}
 
@@ -142,8 +173,9 @@ angular.module('citizen-engagement').factory('mapService', function(geolocation,
 	return service;
 });
 
-angular.module('citizen-engagement').controller('newIssueCtrl', function(geolocation, issuesService, $log, $scope) {
+angular.module('citizen-engagement').controller('newIssueCtrl', function(geolocation, issuesService, CameraService, $log, $ionicPopup, $scope, $state) {
 	var ctrl = this;
+	ctrl.issue = {};
 	geolocation.getLocation().then(function(data){
 		ctrl.latitude = data.coords.latitude;
 		ctrl.longitude = data.coords.longitude;
@@ -154,15 +186,27 @@ angular.module('citizen-engagement').controller('newIssueCtrl', function(geoloca
 		ctrl.issueTypes = data;
 	});
 	ctrl.addIssue = function(){
-		issuesService.postIssue(ctrl.issue, ctrl)
-		issuesService.postUser(ctrl.user, ctrl).then(function(){
-			$state.go('issueList');
+		issuesService.postIssue(ctrl.issue, ctrl).then(function(){
+			$state.go('tab.issueList');
 		});
 	};
-	ctrl.showIssue = function(){
-		console.log(ctrl.issue);
-		console.log(ctrl.error);
-	}
+
+	ctrl.takePicture = function() {
+			
+		if (!CameraService.isSupported()) {
+			return $ionicPopup.alert({
+				title: 'Non pris en charge',
+				template: 'Vous ne pouvez pas utiliser l\'appareil photo sur cette plateforme' 
+			});
+		}
+			
+		CameraService.getPicture().then(function(result) {
+			$log.debug('Picture taken!');
+			ctrl.pictureData = result;
+		}).catch(function(err) {
+			$log.error('Impossible de prendre une photo car : ' + err.message);
+		});
+	};
 });
 
 angular.module('citizen-engagement').controller('issueListCtrl', function(issuesService) {
