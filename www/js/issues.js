@@ -14,7 +14,13 @@ angular.module('citizen-engagement').factory('issuesService', function($http, ap
 	}
 
 	service.getIssue = function(id){
-		return $http.get(apiUrl + '/issues/' + id).then(function(res) {
+		return $http({
+			method: 'GET',
+			url: apiUrl + '/issues/' + id,
+			params:{
+				include : 'issueType'
+			}
+		}).then(function(res) {
 			return res.data;
 		});
 	}
@@ -26,6 +32,31 @@ angular.module('citizen-engagement').factory('issuesService', function($http, ap
 			params:{include : 'author'}
 		}).then(function(res) {
 			return res.data;
+		});
+	}
+
+	service.postIssueComments = function(id, ctrl){
+
+		$ionicLoading.show({
+			template: 'Envoi du commentaire...',
+			delay: 750
+		});
+
+		return $http({
+			method: 'POST',
+			url: apiUrl + '/issues/' + id +'/comments',
+			data: {
+				text : ctrl.newComment
+			}
+		}).then(function(res) {
+
+			delete ctrl.error;
+			$ionicLoading.hide();
+			return res;
+		}).catch(function(err){
+			$ionicLoading.hide();
+			ctrl.error = err;
+			throw new Error("Une erreur est survenue lors de l'ajout du commentaire");
 		});
 	}
 
@@ -263,6 +294,9 @@ angular.module('citizen-engagement').controller('issueDetailsCtrl', function(use
 	issuesService.getIssueComments($stateParams.issueId).then(function(data) {
 		ctrl.comments = data;
 	});
+	ctrl.postComment = function(){
+		issuesService.postIssueComments($stateParams.issueId,ctrl);
+	}
 });
 
 angular.module('citizen-engagement').controller('issueMapCtrl', function($scope, mapBoxToken, mapService) {

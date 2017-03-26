@@ -1,33 +1,31 @@
 <ion-view view-title="Connexion">
 	<ion-content class="padding">
-        
+		
 		<div class="card">
 			<div class="item titre">
-                      <img class="imgLogo" src="img/logo.png" alt="icon">
+				<img class="imgLogo" src="img/logo.png" alt="icon">
 
 				<h2>Bienvenue sur Citizen Engagement!</h2>
-                   <p> Connectez-vous pour utiliser l'application.</p>
-            
+				<p> Connectez-vous pour utiliser l'application.</p>
+			
 			</div>
-		<form name="loginForm">
-			<div class="list">
-				<label class="item item-input item-floating-label">
-					<span class="input-label">Nom d'utilisateur</span>
-					<input type="text" placeholder="Nom d'utilisateur" ng-model="loginCtrl.user.name" required />
-				</label>
-				<label class="item item-input item-floating-label">
-					<span class="input-label">Mot de passe</span>
-					<input type="password" placeholder="Mot de passe" ng-model="loginCtrl.user.password" required />
-				</label>
-			</div>
-            		</form>
+			<form name="loginForm">
+				<div class="list">
+					<label class="item item-input item-floating-label">
+						<span class="input-label">Nom d'utilisateur</span>
+						<input type="text" placeholder="Nom d'utilisateur" ng-model="loginCtrl.user.name" required />
+					</label>
+					<label class="item item-input item-floating-label">
+						<span class="input-label">Mot de passe</span>
+						<input type="password" placeholder="Mot de passe" ng-model="loginCtrl.user.password" required />
+					</label>
+				</div>
+			</form>
+		</div>
 
-             </div>
-
-			<p ng-if="loginCtrl.error" class="error">{{ loginCtrl.error }}</p>
-        
-			<button class="button button-full button-positive" ng-click="loginCtrl.logIn()" ng-disabled="loginForm.$invalid">Se connecter</button>
-			<a ui-sref="addUser"><button class="button button-full button-positive">Créer un compte</button></a>
+		<p ng-if="loginCtrl.error" class="error">{{ loginCtrl.error }}</p>
+		<button class="button button-full button-positive" ng-click="loginCtrl.logIn()" ng-disabled="loginForm.$invalid">Se connecter</button>
+		<a ui-sref="addUser"><button class="button button-full button-positive">Créer un compte</button></a>
 
 
 	</ion-content>

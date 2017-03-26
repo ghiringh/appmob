@@ -5,33 +5,28 @@
 		<div class="card">
 			<div class="item item-avatar">
 				<h2>Mon profil</h2>
-			</div>	
-
-
-
+			</div>
 			<div class="userInfos">
-				<label class="item item-input">
-				
-					<input type="text" placeholder="Nom d'utilisateur" required />
+				<label class="item item-input item-floating-label">
+					<span class="input-label">Nom d'utilisateur</span>
+					<input type="text" placeholder="{{profilCtrl.me.name}}"/>
 				</label>
 
-				<label class="item item-input">
-					<input type="password" placeholder="Mot de passe" required />
+				 <label class="item item-input item-floating-label">
+					<span class="input-label">Prénom</span>
+					<input type="text" placeholder="{{profilCtrl.me.firstname}}"/>
 				</label>
 
-				 <label class="item item-input">
-					<input type="text" placeholder="Prénom" required />
+				<label class="item item-input item-floating-label">
+					<span class="input-label">Nom</span>
+					<input type="text" placeholder="{{profilCtrl.me.lastname}}"/>
 				</label>
 
-				<label class="item item-input">
-					<input type="text" placeholder="Nom" required />
-				</label>
-
-				<label class="item item-input">
-					<input type="text" placeholder="Téléphone" required />
+				<label class="item item-input item-floating-label">
+					<span class="input-label">Téléphone</span>
+					<input type="text" placeholder="{{profilCtrl.me.telephone}}"/>
 				</label>
 			</div>
-
 		</div>
 
 
