@@ -2,10 +2,13 @@
 	<ion-content class="padding">
         
 		<div class="card">
-			<div class="item item-text-wrap">
-				Bienvenue sur Citizen Engagement! Connectez-vous pour utiliser l'application.
+			<div class="item titre">
+                      <img class="imgLogo" src="img/logo.png" alt="icon">
+
+				<h2>Bienvenue sur Citizen Engagement!</h2>
+                   <p> Connectez-vous pour utiliser l'application.</p>
+            
 			</div>
-		</div>
 		<form name="loginForm">
 			<div class="list">
 				<label class="item item-input item-floating-label">
@@ -17,9 +20,15 @@
 					<input type="password" placeholder="Mot de passe" ng-model="loginCtrl.user.password" required />
 				</label>
 			</div>
+            		</form>
+
+             </div>
+
 			<p ng-if="loginCtrl.error" class="error">{{ loginCtrl.error }}</p>
+        
 			<button class="button button-full button-positive" ng-click="loginCtrl.logIn()" ng-disabled="loginForm.$invalid">Se connecter</button>
 			<a ui-sref="addUser"><button class="button button-full button-positive">Créer un compte</button></a>
-		</form>
+
+
 	</ion-content>
 </ion-view>
